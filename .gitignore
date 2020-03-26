@@ -1,3 +1,9 @@
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
 # Gradle
 /.gradle/
 /build/
