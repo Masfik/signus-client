@@ -1,9 +1,8 @@
 package ui
 
-import javafx.scene.Scene
 import tornadofx.*
-import ui.pages.MainScreen
+import ui.pages.login.LoginScreen
 
-class Signus : App(MainScreen::class) {
-  override fun createPrimaryScene(view: UIComponent): Scene = Scene(view.root, 900.0, 600.0)
+class Signus : App(LoginScreen::class) {
+
 }
