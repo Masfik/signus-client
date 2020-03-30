@@ -9,7 +9,7 @@ class User(username: String, email: String): JsonModel {
     private var contacts: List<User>? = null
 
     val nameProperty = SimpleStringProperty()
-    var name by nameProperty
+    var name: String? by nameProperty
 
 
     override fun updateModel(json: JsonObject) {

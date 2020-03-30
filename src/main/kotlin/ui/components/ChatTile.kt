@@ -28,7 +28,7 @@ class ChatTile : Fragment() {
     maxHeight = 50.0
     style {
       paddingAll = 10
-      backgroundColor = multi(Color.ALICEBLUE)
+      backgroundColor += Color.ALICEBLUE
     }
   }
 }
