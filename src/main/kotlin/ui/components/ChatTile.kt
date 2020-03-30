@@ -1,34 +1,30 @@
 package ui.components
 
 import javafx.geometry.Pos
-import javafx.scene.paint.Color
-import javafx.scene.text.FontWeight
 import tornadofx.*
+import ui.MainStylesheet
+import ui.MainStylesheet.Companion.avatarSize
+import ui.MainStylesheet.Companion.chatTile
+import ui.MainStylesheet.Companion.defaultSpacing
+import ui.MainStylesheet.Companion.partnerName
 
 class ChatTile : Fragment() {
   override val root = hbox {
+    setId(chatTile)
+    spacing = defaultSpacing
+    maxHeight = 50.0
+
     run {
       imageview("user.png") {
-        fitHeight = 50.0
-        fitWidth = 50.0
+        fitHeight = avatarSize
+        fitWidth = avatarSize
       }
     }
     vbox {
       alignment = Pos.CENTER_LEFT
 
-      label("Name of the chat") {
-        style {
-          fontWeight = FontWeight.BOLD
-        }
-      }
+      label("Name of the chat").addClass(partnerName)
       label("Here is my latest message")
-    }
-
-    spacing = 10.0
-    maxHeight = 50.0
-    style {
-      paddingAll = 10
-      backgroundColor += Color.ALICEBLUE
     }
   }
 }

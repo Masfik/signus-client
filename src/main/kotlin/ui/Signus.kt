@@ -1,7 +1,10 @@
 package ui
 
 import tornadofx.*
-import ui.pages.MainScreen
-import ui.pages.login.LoginScreen
+import ui.pages.main.MainScreen
 
-class Signus : App(MainScreen::class)
+class Signus : App(MainScreen::class, MainStylesheet::class) {
+  init {
+    reloadStylesheetsOnFocus()
+  }
+}

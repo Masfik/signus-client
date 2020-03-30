@@ -1,7 +1,8 @@
-package ui.pages
+package ui.pages.main
 
 import tornadofx.*
 import ui.components.ChatTile
+import ui.pages.main.chat.ChatTab
 
 class MainScreen : View("Signus") {
   override val root = splitpane {
@@ -11,6 +12,6 @@ class MainScreen : View("Signus") {
     vbox {
       for (i: Int in 0..5) this += find(ChatTile::class)
     }
-    this += find(ChatScreen::class)
+    this += find(ChatTab::class)
   }
 }
