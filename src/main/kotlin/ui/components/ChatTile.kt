@@ -1,14 +1,17 @@
 package ui.components
 
 import javafx.geometry.Pos
+import models.Chat
+import models.ChatModel
 import tornadofx.*
-import ui.MainStylesheet
 import ui.MainStylesheet.Companion.avatarSize
 import ui.MainStylesheet.Companion.chatTile
 import ui.MainStylesheet.Companion.defaultSpacing
 import ui.MainStylesheet.Companion.partnerName
 
-class ChatTile : Fragment() {
+class ChatTile : ListCellFragment<Chat>() {
+  private val chat = ChatModel().bindTo(this)
+
   override val root = hbox {
     setId(chatTile)
     spacing = defaultSpacing
@@ -23,7 +26,7 @@ class ChatTile : Fragment() {
     vbox {
       alignment = Pos.CENTER_LEFT
 
-      label("Name of the chat").addClass(partnerName)
+      label(chat.id).addClass(partnerName)
       label("Here is my latest message")
     }
   }

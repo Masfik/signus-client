@@ -1,8 +1,9 @@
-package ui.pages.main.chat
+package ui.pages.chat
 
 import javafx.geometry.Pos
 import javafx.scene.control.TextField
 import javafx.scene.layout.Priority
+import javafx.scene.paint.Color
 import tornadofx.*
 import ui.MainStylesheet.Companion.chatScreen
 import ui.MainStylesheet.Companion.chatTopBar
@@ -30,7 +31,15 @@ class ChatTab : View() {
           setId(partner)
 
           label(title).addClass(partnerName)
-          label("Offline")
+          hbox {
+            alignment = Pos.CENTER_LEFT
+            spacing = 5.0
+            circle {
+              radius = 5.0
+              fill = Color.GRAY
+            }
+            label("Offline")
+          }
         }
       }
     }

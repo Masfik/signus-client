@@ -1,7 +1,7 @@
 package ui
 
 import tornadofx.*
-import ui.pages.main.MainScreen
+import ui.pages.MainScreen
 
 class Signus : App(MainScreen::class, MainStylesheet::class) {
   init {

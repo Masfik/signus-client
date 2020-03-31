@@ -16,8 +16,11 @@ class Message : Fragment() {
     }
 
     vbox {
+      spacing = 3.0
+
       hbox {
         spacing = MainStylesheet.defaultSpacing
+
         label("Name Surname").addClass(MainStylesheet.partnerName)
         label("Today at 05:14").addClass(MainStylesheet.messageTime)
       }

@@ -3,7 +3,7 @@ package ui.pages.login
 import javafx.beans.property.SimpleStringProperty
 import models.UserModel
 import tornadofx.*
-import ui.pages.main.MainScreen
+import ui.pages.MainScreen
 
 class LoginController : Controller() {
   val statusProperty = SimpleStringProperty("")
