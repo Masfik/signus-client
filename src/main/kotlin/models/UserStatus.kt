@@ -1,5 +1,5 @@
 package models
 
-enum class UserState {
+enum class UserStatus {
   ONLINE, OFFLINE, BUSY
 }

@@ -26,7 +26,7 @@ class ChatTile : ListCellFragment<Chat>() {
     vbox {
       alignment = Pos.CENTER_LEFT
 
-      label(chat.id).addClass(partnerName)
+      label(chat.partner.value?.name ?: "No name").addClass(partnerName)
       label("Here is my latest message")
     }
   }
