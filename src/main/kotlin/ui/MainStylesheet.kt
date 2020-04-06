@@ -1,19 +1,19 @@
 package ui
 
 import javafx.geometry.Pos
+import javafx.scene.effect.DropShadow
 import javafx.scene.paint.Color
 import javafx.scene.text.FontPosture
 import javafx.scene.text.FontWeight
-import javafx.scene.text.TextAlignment
 import tornadofx.*
 
 class MainStylesheet : Stylesheet() {
   companion object {
-    val chatTile by cssid()
+    val topBar by cssclass()
+    val chatTile by cssclass()
     val partnerName by cssclass()
 
     val chatScreen by cssid()
-    val chatTopBar by cssid()
     val partner by cssid()
     val chatMessage by cssclass()
     val messageTime by cssclass()
@@ -21,12 +21,22 @@ class MainStylesheet : Stylesheet() {
     /* STYLING CONST */
     const val defaultSpacing = 10.0
     const val avatarSize = 50.0
+    private val dropShadow = DropShadow(5.0, Color.GRAY)
   }
 
   init {
+    splitPane {
+      padding = box(0.px)
+    }
+
+    topBar {
+      backgroundColor += Color.WHITE
+      prefHeight = 50.0.px
+      effect = dropShadow
+    }
+
     chatTile {
-      padding = box(defaultSpacing.px)
-      backgroundColor += Color.ALICEBLUE
+      padding = box(5.px)
     }
 
     partnerName {
@@ -34,10 +44,7 @@ class MainStylesheet : Stylesheet() {
     }
 
     chatScreen {
-      chatTopBar {
-        prefHeight = 50.0.px
-        backgroundColor += Color.WHITE
-
+      topBar {
         partner {
           alignment = Pos.CENTER_LEFT
           padding = box(0.0.px, 0.0.px, 0.0.px, defaultSpacing.px)
@@ -59,6 +66,7 @@ class MainStylesheet : Stylesheet() {
       }
 
       form {
+        effect = dropShadow
         backgroundColor += Color.WHITE
       }
     }

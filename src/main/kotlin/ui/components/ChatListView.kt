@@ -2,14 +2,15 @@ package ui.components
 
 import models.AuthUserModel
 import models.Chat
-import models.User
-import tornadofx.*
+import tornadofx.View
+import tornadofx.bindSelected
+import tornadofx.listview
 
 class ChatListView : View() {
   private val authUser: AuthUserModel by inject()
-  private val chats = authUser.chats.value
 
-  override val root = listview(chats) {
+  override val root = listview<Chat>(authUser.chats.value) {
     cellFragment(ChatTile::class)
+    bindSelected(authUser.activeChat)
   }
 }

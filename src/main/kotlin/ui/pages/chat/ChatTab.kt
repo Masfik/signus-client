@@ -4,33 +4,36 @@ import javafx.geometry.Pos
 import javafx.scene.control.TextField
 import javafx.scene.layout.Priority
 import javafx.scene.paint.Color
+import models.AuthUserModel
+import models.Chat
+import models.User
 import tornadofx.*
 import ui.MainStylesheet.Companion.chatScreen
-import ui.MainStylesheet.Companion.chatTopBar
+import ui.MainStylesheet.Companion.topBar
 import ui.MainStylesheet.Companion.defaultSpacing
-import ui.MainStylesheet.Companion.partner
+import ui.MainStylesheet.Companion.partner as partnerID
 import ui.MainStylesheet.Companion.partnerName
 import ui.components.Message
 
 class ChatTab : View() {
   private val chatTabController: ChatTabController by inject()
-  private var message: TextField by singleAssign()
 
-  init {
-    title = "Name of the person"
-  }
+  private val authUser: AuthUserModel by inject()
+  private val partner = authUser.activeChat.select(Chat::partnerProperty)
+
+  private var message: TextField by singleAssign()
 
   override val root = borderpane {
     setId(chatScreen)
 
     top {
       stackpane {
-        setId(chatTopBar)
+        addClass(topBar)
 
         vbox {
-          setId(partner)
+          setId(partnerID)
 
-          label(title).addClass(partnerName)
+          label(partner.select(User::nameProperty)).addClass(partnerName)
           hbox {
             alignment = Pos.CENTER_LEFT
             spacing = 5.0

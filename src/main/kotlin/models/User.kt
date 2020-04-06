@@ -30,9 +30,9 @@ open class User(name: String, username: String, email: String) : JsonModel {
   }
 }
 
-open class UserModel : ItemViewModel<User>() {
-  val name = bind(User::nameProperty)
-  val username = bind(User::usernameProperty)
-  val email = bind(User::emailProperty)
-  val status = bind(User::statusProperty)
+class UserModel(user: User? = null) : ItemViewModel<User>(user) {
+  val name: SimpleStringProperty = bind(User::nameProperty)
+  val username: SimpleStringProperty = bind(User::usernameProperty)
+  val email: SimpleStringProperty = bind(User::emailProperty)
+  val status: SimpleObjectProperty<UserStatus> = bind(User::statusProperty)
 }

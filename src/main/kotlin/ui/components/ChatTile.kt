@@ -3,6 +3,7 @@ package ui.components
 import javafx.geometry.Pos
 import models.Chat
 import models.ChatModel
+import models.User
 import tornadofx.*
 import ui.MainStylesheet.Companion.avatarSize
 import ui.MainStylesheet.Companion.chatTile
@@ -13,7 +14,7 @@ class ChatTile : ListCellFragment<Chat>() {
   private val chat = ChatModel().bindTo(this)
 
   override val root = hbox {
-    setId(chatTile)
+    addClass(chatTile)
     spacing = defaultSpacing
     maxHeight = 50.0
 
@@ -26,8 +27,12 @@ class ChatTile : ListCellFragment<Chat>() {
     vbox {
       alignment = Pos.CENTER_LEFT
 
-      label(chat.partner.value?.name ?: "No name").addClass(partnerName)
-      label("Here is my latest message")
+      label(chat.partner.select(User::nameProperty)).addClass(partnerName)
+      label(
+        if (!chat.messageList.value.isEmpty())
+          chat.messageList.value[0].dataAsString()
+        else "No messages"
+      )
     }
   }
 }
