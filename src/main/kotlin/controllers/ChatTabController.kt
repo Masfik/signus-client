@@ -1,4 +1,4 @@
-package ui.pages.chat
+package controllers
 
 import javafx.scene.control.TextField
 import tornadofx.Controller

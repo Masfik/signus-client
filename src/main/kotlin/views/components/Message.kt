@@ -1,7 +1,8 @@
-package ui.components
+package views.components
 
 import tornadofx.*
-import ui.MainStylesheet
+import views.MainStylesheet
+import views.MainStylesheet.Companion.avatarSize
 
 class Message : Fragment() {
   override val root = hbox {
@@ -9,10 +10,7 @@ class Message : Fragment() {
     addClass(MainStylesheet.chatMessage)
 
     run {
-      imageview("user.png") {
-        fitHeight = MainStylesheet.avatarSize
-        fitWidth = MainStylesheet.avatarSize
-      }
+      imageview("user.png").avatarSize()
     }
 
     vbox {

@@ -1,5 +1,6 @@
-package ui.pages.login
+package views.screens
 
+import controllers.LoginController
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
 import javafx.scene.paint.Color

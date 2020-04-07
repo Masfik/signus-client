@@ -1,7 +1,8 @@
-package ui
+package views
 
 import javafx.geometry.Pos
 import javafx.scene.effect.DropShadow
+import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontPosture
 import javafx.scene.text.FontWeight
@@ -20,8 +21,8 @@ class MainStylesheet : Stylesheet() {
 
     /* STYLING CONST */
     const val defaultSpacing = 10.0
-    const val avatarSize = 50.0
-    private val dropShadow = DropShadow(5.0, Color.GRAY)
+    fun ImageView.avatarSize() { fitHeight = 50.0; fitWidth = fitHeight }
+    private val dropShadow = DropShadow(8.0, Color.LIGHTGRAY)
   }
 
   init {
@@ -66,8 +67,8 @@ class MainStylesheet : Stylesheet() {
       }
 
       form {
-        effect = dropShadow
         backgroundColor += Color.WHITE
+        effect = dropShadow
       }
     }
   }

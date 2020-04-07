@@ -1,14 +1,14 @@
-package ui.components
+package views.components
 
 import javafx.geometry.Pos
 import models.Chat
 import models.ChatModel
 import models.User
 import tornadofx.*
-import ui.MainStylesheet.Companion.avatarSize
-import ui.MainStylesheet.Companion.chatTile
-import ui.MainStylesheet.Companion.defaultSpacing
-import ui.MainStylesheet.Companion.partnerName
+import views.MainStylesheet.Companion.avatarSize
+import views.MainStylesheet.Companion.chatTile
+import views.MainStylesheet.Companion.defaultSpacing
+import views.MainStylesheet.Companion.partnerName
 
 class ChatTile : ListCellFragment<Chat>() {
   private val chat = ChatModel().bindTo(this)
@@ -19,10 +19,7 @@ class ChatTile : ListCellFragment<Chat>() {
     maxHeight = 50.0
 
     run {
-      imageview("user.png") {
-        fitHeight = avatarSize
-        fitWidth = avatarSize
-      }
+      imageview("user.png").avatarSize()
     }
     vbox {
       alignment = Pos.CENTER_LEFT
