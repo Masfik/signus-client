@@ -13,8 +13,15 @@ class MainScreen : View("Signus") {
   init {
     controller.listenActiveChat()
 
+    val tom = User("Tom", "Caedan", "tom")
+    val tomChat = Chat(242, tom)
+    tomChat.messageList.addAll(
+      Message(1, "This is a simple test", tom),
+      Message(2, "This is my latest message", tom)
+    )
+
     authUser.chats.addAll(
-      Chat(242, User("Tom", "Caedan", "tom")),
+      tomChat,
       Chat(2, User("Masfik", "Username", "email"))
     )
     authUserModel.item = authUser

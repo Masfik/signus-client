@@ -11,13 +11,13 @@ class MainController : Controller() {
   fun listenActiveChat() {
     find<AuthUserModel>().activeChat.onChange { chat ->
       if (chat == null) {
-        find(ChatTab::class).replaceWith(
+        find<ChatTab>().replaceWith(
           NoChatSelected::class,
           ViewTransition.Slide(0.2.seconds, ViewTransition.Direction.RIGHT)
         )
         isChatOpen = false
       } else if (!isChatOpen) {
-        find(NoChatSelected::class).replaceWith(
+        find<NoChatSelected>().replaceWith(
           ChatTab::class,
           ViewTransition.Slide(0.2.seconds, ViewTransition.Direction.LEFT)
         )

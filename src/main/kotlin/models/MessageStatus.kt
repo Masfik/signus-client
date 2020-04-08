@@ -1,5 +1,5 @@
 package models
 
-enum class MessageState {
+enum class MessageStatus {
   SENT, UNSENT, READ
 }

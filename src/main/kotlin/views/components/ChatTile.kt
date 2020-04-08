@@ -5,10 +5,10 @@ import models.Chat
 import models.ChatModel
 import models.User
 import tornadofx.*
-import views.MainStylesheet.Companion.avatarSize
-import views.MainStylesheet.Companion.chatTile
-import views.MainStylesheet.Companion.defaultSpacing
-import views.MainStylesheet.Companion.partnerName
+import views.utils.MainStylesheet.Companion.avatarSize
+import views.utils.MainStylesheet.Companion.chatTile
+import views.utils.MainStylesheet.Companion.defaultSpacing
+import views.utils.MainStylesheet.Companion.partnerName
 
 class ChatTile : ListCellFragment<Chat>() {
   private val chat = ChatModel().bindTo(this)

@@ -1,4 +1,4 @@
-package views
+package views.utils
 
 import javafx.geometry.Pos
 import javafx.scene.effect.DropShadow
@@ -28,8 +28,9 @@ class MainStylesheet : Stylesheet() {
   }
 
   init {
-    splitPane {
+    s(splitPane, listView) {
       padding = box(0.px)
+      backgroundInsets += box(0.px)
     }
 
     topBar {

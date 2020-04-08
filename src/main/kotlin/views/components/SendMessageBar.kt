@@ -4,7 +4,7 @@ import controllers.ChatTabController
 import javafx.scene.control.TextField
 import javafx.scene.layout.Priority
 import tornadofx.*
-import views.MainStylesheet
+import views.utils.MainStylesheet
 
 class SendMessageBar : View("My View") {
   private val controller: ChatTabController by inject()
