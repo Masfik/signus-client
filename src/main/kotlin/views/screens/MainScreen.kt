@@ -16,8 +16,8 @@ class MainScreen : View("Signus") {
     val tom = User("Tom", "Caedan", "tom")
     val tomChat = Chat(242, tom)
     tomChat.messageList.addAll(
-      Message(1, "This is a simple test", tom),
-      Message(2, "This is my latest message", tom)
+      Message("This is a simple test", tom),
+      Message("This is my latest message", tom)
     )
 
     authUser.chats.addAll(

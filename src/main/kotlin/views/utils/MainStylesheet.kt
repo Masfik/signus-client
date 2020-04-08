@@ -40,7 +40,7 @@ class MainStylesheet : Stylesheet() {
     }
 
     chatTile {
-      padding = box(5.px)
+      maxHeight = 50.0.px
     }
 
     partnerName {

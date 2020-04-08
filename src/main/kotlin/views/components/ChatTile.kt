@@ -16,7 +16,6 @@ class ChatTile : ListCellFragment<Chat>() {
   override val root = hbox {
     addClass(chatTile)
     spacing = defaultSpacing
-    maxHeight = 50.0
 
     run {
       imageview("user.png").avatarSize()
@@ -25,11 +24,7 @@ class ChatTile : ListCellFragment<Chat>() {
       alignment = Pos.CENTER_LEFT
 
       label(chat.partner.select(User::nameProperty)).addClass(partnerName)
-      label(
-        if (!chat.messageList.value.isEmpty())
-          chat.messageList.value[0].messagePreview
-        else "No messages"
-      )
+      label(chat.preview)
     }
   }
 }

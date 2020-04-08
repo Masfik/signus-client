@@ -10,7 +10,7 @@ import views.components.ChatTile
 class ChatListTab : View() {
   private val authUser: AuthUserModel by inject()
 
-  override val root = listview<Chat>(authUser.chats.value) {
+  override val root = listview<Chat>(authUser.chats) {
     cellFragment(ChatTile::class)
     bindSelected(authUser.activeChat)
   }

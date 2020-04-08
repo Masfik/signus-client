@@ -1,8 +1,6 @@
 package models
 
-import javafx.beans.property.SimpleIntegerProperty
-import javafx.beans.property.SimpleListProperty
-import javafx.beans.property.SimpleObjectProperty
+import javafx.beans.property.*
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.*
@@ -16,10 +14,17 @@ class Chat(id: Int, partner: User, messageList: List<Message> = ArrayList()) : J
 
   val messagesProperty = SimpleListProperty(FXCollections.observableArrayList(messageList))
   val messageList: ObservableList<Message> by messagesProperty
+
+  // TODO: val previewProperty
+  val preview
+    get() = if (messageList.isNotEmpty()) {
+      messageList.last().preview
+    } else "No messages"
 }
 
 class ChatModel : ItemViewModel<Chat>() {
   val id: SimpleIntegerProperty = bind(Chat::idProperty)
   val partner: SimpleObjectProperty<User> = bind(Chat::partnerProperty)
   val messageList: SimpleListProperty<Message> = bind(Chat::messagesProperty)
+  val preview = bind(Chat::preview)
 }

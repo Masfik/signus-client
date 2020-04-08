@@ -1,15 +1,12 @@
 package views.screens
 
-import javafx.geometry.Pos
-import javafx.scene.input.KeyEvent
-import models.AuthUserModel
-import models.Chat
-import tornadofx.*
-import views.utils.MainStylesheet.Companion.chatScreen
+import tornadofx.View
+import tornadofx.borderpane
+import tornadofx.setId
 import views.components.ChatTopBar
 import views.components.MessageList
-import views.components.MessageTile
 import views.components.SendMessageBar
+import views.utils.MainStylesheet.Companion.chatScreen
 
 class ChatTab : View() {
   override val root = borderpane {
@@ -18,9 +15,5 @@ class ChatTab : View() {
     top<ChatTopBar>()
     center<MessageList>()
     bottom<SendMessageBar>()
-
-    keyboard {
-      addEventHandler(KeyEvent.KEY_PRESSED) { println(it.code) }
-    }
   }
 }

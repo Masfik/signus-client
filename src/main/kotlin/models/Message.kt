@@ -1,14 +1,13 @@
 package models
 
-import javafx.beans.property.Property
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleObjectProperty
 import tornadofx.ItemViewModel
 import tornadofx.getValue
 import tornadofx.setValue
 
-class Message(id: Int, data: Any, sender: User) {
-  val idProperty = SimpleIntegerProperty(id)
+class Message(data: Any, sender: User) {
+  val idProperty = SimpleIntegerProperty(0)
   val id by idProperty
 
   val dataProperty = SimpleObjectProperty(data)
@@ -20,10 +19,13 @@ class Message(id: Int, data: Any, sender: User) {
   val statusProperty = SimpleObjectProperty(MessageStatus.SENT)
   var status: MessageStatus by statusProperty
 
-  val messagePreview: String = when (data) {
-    is String -> data as String
-    else -> "Unknown"
-  }
+  val preview
+    get() = when (data) {
+      is String -> data
+      // is Image -> "Image"
+      // is File -> "Document"
+      else -> "Unknown"
+    }
 }
 
 class MessageModel : ItemViewModel<Message>() {
@@ -31,5 +33,5 @@ class MessageModel : ItemViewModel<Message>() {
   val data: SimpleObjectProperty<Any> = bind(Message::dataProperty)
   val sender: SimpleObjectProperty<User> = bind(Message::senderProperty)
   val status: SimpleObjectProperty<MessageStatus> = bind(Message::statusProperty)
-  val messagePreview: Property<String> = bind(Message::messagePreview)
+  val messagePreview = bind(Message::preview)
 }
