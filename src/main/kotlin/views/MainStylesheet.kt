@@ -16,6 +16,8 @@ class MainStylesheet : Stylesheet() {
 
     val chatScreen by cssid()
     val partner by cssid()
+    val partnerStatus by cssid()
+    val closeButton by cssid()
     val chatMessage by cssclass()
     val messageTime by cssclass()
 
@@ -54,6 +56,16 @@ class MainStylesheet : Stylesheet() {
             fontWeight = FontWeight.BOLD
             padding = box(0.0.px, 0.0.px, 3.0.px, 0.0.px)
           }
+
+          partnerStatus {
+            alignment = Pos.CENTER_LEFT
+            spacing = 5.0.px
+          }
+        }
+
+        closeButton {
+          alignment = Pos.CENTER_LEFT
+          padding = box(0.0.px, defaultSpacing.px, 0.0.px, 0.0.px)
         }
       }
 

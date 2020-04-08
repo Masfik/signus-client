@@ -6,11 +6,10 @@ import views.components.NoChatSelected
 import views.screens.ChatTab
 
 class MainController : Controller() {
-  private val authUser: AuthUserModel by inject()
   private var isChatOpen = false
 
   fun listenActiveChat() {
-    authUser.activeChat.onChange { chat ->
+    find<AuthUserModel>().activeChat.onChange { chat ->
       if (chat == null) {
         find(ChatTab::class).replaceWith(
           NoChatSelected::class,

@@ -27,7 +27,7 @@ class ChatTile : ListCellFragment<Chat>() {
       label(chat.partner.select(User::nameProperty)).addClass(partnerName)
       label(
         if (!chat.messageList.value.isEmpty())
-          chat.messageList.value[0].dataAsString()
+          chat.messageList.value[0].messagePreview
         else "No messages"
       )
     }
