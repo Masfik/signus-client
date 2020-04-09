@@ -4,8 +4,11 @@ import models.Message
 import models.MessageModel
 import models.User
 import tornadofx.*
-import views.utils.MainStylesheet
-import views.utils.MainStylesheet.Companion.avatarSize
+import views.stylesheets.ChatTabStylesheet.Companion.chatMessage
+import views.stylesheets.ChatTabStylesheet.Companion.messageTime
+import views.stylesheets.MainStylesheet.Companion.avatarSize
+import views.stylesheets.MainStylesheet.Companion.partnerName as partnerNameClass
+import views.stylesheets.MainStylesheet.Companion.defaultSpacing
 
 class MessageTile : ListCellFragment<Message>() {
   private val message = MessageModel().bindTo(this)
@@ -13,8 +16,8 @@ class MessageTile : ListCellFragment<Message>() {
   private val data = message.data
 
   override val root = hbox {
-    spacing = MainStylesheet.defaultSpacing
-    addClass(MainStylesheet.chatMessage)
+    spacing = defaultSpacing
+    addClass(chatMessage)
 
     run {
       imageview("user.png").avatarSize()
@@ -24,10 +27,10 @@ class MessageTile : ListCellFragment<Message>() {
       spacing = 3.0
 
       hbox {
-        spacing = MainStylesheet.defaultSpacing
+        spacing = defaultSpacing
 
-        label(partnerName).addClass(MainStylesheet.partnerName)
-        label("Today at 05:14").addClass(MainStylesheet.messageTime)
+        label(partnerName).addClass(partnerNameClass)
+        label("Today at 05:14").addClass(messageTime)
       }
 
       // TODO: For the moment, only text is show to the user

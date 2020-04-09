@@ -1,16 +1,16 @@
 package views.screens
 
 import tornadofx.View
+import tornadofx.addStylesheet
 import tornadofx.borderpane
-import tornadofx.setId
 import views.components.ChatTopBar
 import views.components.MessageList
 import views.components.SendMessageBar
-import views.utils.MainStylesheet.Companion.chatScreen
+import views.stylesheets.ChatTabStylesheet
 
 class ChatTab : View() {
   override val root = borderpane {
-    setId(chatScreen)
+    addStylesheet(ChatTabStylesheet::class)
 
     top<ChatTopBar>()
     center<MessageList>()

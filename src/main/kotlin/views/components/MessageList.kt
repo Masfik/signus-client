@@ -1,5 +1,6 @@
 package views.components
 
+import misc.ChatSelectionModel
 import models.AuthUserModel
 import models.Chat
 import models.Message
@@ -11,5 +12,6 @@ class MessageList : View("My View") {
 
   override val root = listview<Message>(messageList) {
     cellFragment(MessageTile::class)
+    selectionModel = ChatSelectionModel()
   }
 }

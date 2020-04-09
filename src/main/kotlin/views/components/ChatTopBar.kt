@@ -6,12 +6,12 @@ import models.AuthUserModel
 import models.Chat
 import models.User
 import tornadofx.*
-import views.utils.MainStylesheet.Companion.closeButton
-import views.utils.MainStylesheet.Companion.partnerName
-import views.utils.MainStylesheet.Companion.partnerStatus
-import views.utils.MainStylesheet.Companion.topBar
+import views.stylesheets.ChatTabStylesheet.Companion.closeButton
+import views.stylesheets.MainStylesheet.Companion.partnerName
+import views.stylesheets.ChatTabStylesheet.Companion.partnerStatus
+import views.stylesheets.MainStylesheet.Companion.topBar
 import views.screens.ChatListTab
-import views.utils.MainStylesheet.Companion.partner as partnerID
+import views.stylesheets.ChatTabStylesheet.Companion.partner as partnerID
 
 class ChatTopBar : View() {
   private val partner = find<AuthUserModel>().activeChat.select(Chat::partnerProperty)

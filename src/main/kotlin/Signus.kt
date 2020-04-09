@@ -1,6 +1,6 @@
 import tornadofx.*
 import views.screens.MainScreen
-import views.utils.MainStylesheet
+import views.stylesheets.MainStylesheet
 
 class Signus : App(MainScreen::class, MainStylesheet::class)
 

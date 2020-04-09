@@ -7,7 +7,7 @@ import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import tornadofx.*
 
-class LoginScreen : View("Signus Login") {
+class LoginScreen : View("Signus - Login") {
   private val model = ViewModel()
   private val username = model.bind { SimpleStringProperty() }
   private val password = model.bind { SimpleStringProperty() }
