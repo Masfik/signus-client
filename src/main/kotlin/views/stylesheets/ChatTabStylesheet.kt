@@ -1,6 +1,7 @@
 package views.stylesheets
 
 import javafx.geometry.Pos
+import javafx.scene.paint.Color
 import javafx.scene.text.FontPosture
 import javafx.scene.text.FontWeight
 import tornadofx.*
@@ -50,7 +51,7 @@ class ChatTabStylesheet : Stylesheet() {
     }
 
     form {
-      backgroundColor += SignusColour.PRIMARY.value
+      backgroundColor += SignusColour.PRIMARY
     }
   }
 }
