@@ -1,4 +1,4 @@
-package views.components
+package views.components.chattab
 
 import tornadofx.View
 import tornadofx.label

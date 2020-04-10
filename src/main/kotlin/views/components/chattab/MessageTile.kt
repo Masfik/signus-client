@@ -1,4 +1,4 @@
-package views.components
+package views.components.chattab
 
 import models.Message
 import models.MessageModel

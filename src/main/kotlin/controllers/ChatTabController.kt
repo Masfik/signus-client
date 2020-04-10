@@ -5,7 +5,7 @@ import models.AuthUserModel
 import models.Chat
 import models.Message
 import tornadofx.*
-import views.components.MessageList
+import views.components.chattab.MessageList
 
 class ChatTabController : Controller() {
   private val authUser: AuthUserModel by inject()

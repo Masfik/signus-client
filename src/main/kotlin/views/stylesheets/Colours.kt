@@ -3,21 +3,22 @@ package views.stylesheets
 import javafx.scene.paint.Color
 import tornadofx.c
 
-class SignusColour {
+class SignusTheme {
   companion object {
-    var PRIMARY           = NordSwatch.POLAR_NIGHT0_5.color
-    var PRIMARY_DARKER    = NordSwatch.POLAR_NIGHT0.color
-    var SECONDARY         = NordSwatch.FROST0.color
-    var ACCENT            = NordSwatch.AURORA0.color
-    var BACKGROUND        = NordSwatch.POLAR_NIGHT1.color
+    @JvmStatic var PRIMARY           = NordSwatch.POLAR_NIGHT0_5.color
+    @JvmStatic var PRIMARY_DARKER    = NordSwatch.POLAR_NIGHT0.color
+    @JvmStatic var SECONDARY         = NordSwatch.FROST0.color
+    @JvmStatic var ACCENT            = NordSwatch.AURORA0.color
+    @JvmStatic var BACKGROUND        = NordSwatch.POLAR_NIGHT1.color
 
     /* Text */
-    var TEXT_ON_BG        = NordSwatch.SNOW_STORM2.color
-    var TEXT_ON_SECONDARY = PRIMARY
+    @JvmStatic var TEXT_ON_BG        = NordSwatch.SNOW_STORM2.color
+    @JvmStatic var TEXT_ON_BG_DARKER = NordSwatch.SNOW_STORM0.color
+    @JvmStatic var TEXT_ON_SECONDARY = PRIMARY
 
     /* Input */
-    var INPUT             = NordSwatch.POLAR_NIGHT3.color
-    var PROMPT_TEXT       = NordSwatch.POLAR_NIGHT5.color
+    @JvmStatic var INPUT             = NordSwatch.POLAR_NIGHT3.color
+    @JvmStatic var PROMPT_TEXT       = NordSwatch.POLAR_NIGHT5.color
   }
 }
 

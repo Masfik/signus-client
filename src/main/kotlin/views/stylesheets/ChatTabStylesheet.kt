@@ -1,7 +1,6 @@
 package views.stylesheets
 
 import javafx.geometry.Pos
-import javafx.scene.paint.Color
 import javafx.scene.text.FontPosture
 import javafx.scene.text.FontWeight
 import tornadofx.*
@@ -22,7 +21,6 @@ class ChatTabStylesheet : Stylesheet() {
     topBar {
       partner {
         alignment = Pos.CENTER_LEFT
-        padding = box(0.0.px, 0.0.px, 0.0.px, defaultSpacing.px)
 
         partnerName {
           fontWeight = FontWeight.BOLD
@@ -47,11 +45,12 @@ class ChatTabStylesheet : Stylesheet() {
       messageTime {
         fontStyle = FontPosture.ITALIC
         fontSize = 8.pt
+        textFill = SignusTheme.TEXT_ON_BG_DARKER
       }
     }
 
     form {
-      backgroundColor += SignusColour.PRIMARY
+      backgroundColor += SignusTheme.PRIMARY
     }
   }
 }

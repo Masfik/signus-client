@@ -3,7 +3,7 @@ package views.screens
 import controllers.MainController
 import models.*
 import tornadofx.*
-import views.components.NoChatSelected
+import views.components.chattab.NoChatSelected
 
 class MainScreen : View("Signus") {
   private val authUser = AuthUser("Masfik", "Masfik", "email@email.com")

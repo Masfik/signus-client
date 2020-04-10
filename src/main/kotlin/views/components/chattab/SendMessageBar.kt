@@ -1,4 +1,4 @@
-package views.components
+package views.components.chattab
 
 import controllers.ChatTabController
 import javafx.scene.control.TextField

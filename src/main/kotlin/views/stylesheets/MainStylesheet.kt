@@ -4,6 +4,7 @@ import javafx.scene.effect.DropShadow
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import org.controlsfx.glyphfont.GlyphFontRegistry
 import tornadofx.*
 
 class MainStylesheet : Stylesheet() {
@@ -14,19 +15,20 @@ class MainStylesheet : Stylesheet() {
     val partnerName by cssclass()
 
     /* STYLING CONST */
+    val fontAwesome = GlyphFontRegistry.font("FontAwesome")
     const val defaultSpacing = 10.0
     fun ImageView.avatarSize() { fitHeight = 50.0; fitWidth = fitHeight }
-    val dropShadow = DropShadow(5.0, SignusColour.PRIMARY_DARKER)
+    val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
   }
 
   init {
     /* UI COMPONENTS*/
     "*" {
-      textFill = SignusColour.TEXT_ON_BG
+      textFill = SignusTheme.TEXT_ON_BG
     }
 
     root {
-      backgroundColor += SignusColour.BACKGROUND
+      backgroundColor += SignusTheme.BACKGROUND
     }
 
     s(splitPane, listView) {
@@ -35,7 +37,7 @@ class MainStylesheet : Stylesheet() {
 
       splitPaneDivider {
         padding = box(0.0.px, 1.0.px)
-        backgroundColor += SignusColour.PRIMARY_DARKER
+        backgroundColor += SignusTheme.PRIMARY_DARKER
       }
     }
 
@@ -47,18 +49,18 @@ class MainStylesheet : Stylesheet() {
           backgroundColor += Color.TRANSPARENT
         }
         and(selected) {
-          backgroundColor += SignusColour.SECONDARY
+          backgroundColor += SignusTheme.SECONDARY
 
           label {
-            textFill = SignusColour.TEXT_ON_SECONDARY
+            textFill = SignusTheme.TEXT_ON_SECONDARY
           }
         }
       }
     }
 
     textField {
-      backgroundColor += SignusColour.INPUT
-      promptTextFill = SignusColour.PROMPT_TEXT
+      backgroundColor += SignusTheme.INPUT
+      promptTextFill = SignusTheme.PROMPT_TEXT
 
       and(focused) {
         borderInsets += box(0.px)
@@ -66,33 +68,34 @@ class MainStylesheet : Stylesheet() {
     }
 
     button {
-      backgroundColor += SignusColour.SECONDARY
-      textFill = SignusColour.TEXT_ON_SECONDARY
+      backgroundColor += SignusTheme.SECONDARY
+      textFill = SignusTheme.TEXT_ON_SECONDARY
     }
 
     scrollBar {
-      backgroundColor += SignusColour.PRIMARY
-      prefWidth = defaultSpacing.px
+      backgroundColor += SignusTheme.PRIMARY
+      fontSize = defaultSpacing - 2.px
 
       track {
-        backgroundColor += SignusColour.PRIMARY
+        backgroundColor += SignusTheme.PRIMARY
       }
 
       s(thumb, incrementButton, decrementButton) {
-        backgroundColor += SignusColour.PRIMARY_DARKER
-        borderColor += box(SignusColour.PRIMARY)
+        backgroundColor += SignusTheme.PRIMARY_DARKER
+        borderColor += box(SignusTheme.PRIMARY)
       }
 
       s(decrementArrow, incrementArrow) {
-        backgroundColor += SignusColour.TEXT_ON_BG
+        backgroundColor += SignusTheme.TEXT_ON_BG
       }
     }
 
 
     /* APP CLASSES */
     topBar {
-      backgroundColor += SignusColour.PRIMARY
+      backgroundColor += SignusTheme.PRIMARY
       prefHeight = 50.0.px
+      padding = box((defaultSpacing/2).px, defaultSpacing.px, (defaultSpacing/2).px, defaultSpacing.px)
     }
 
     chatTile {

@@ -6,7 +6,7 @@ import tornadofx.Controller
 import tornadofx.ViewTransition
 import tornadofx.onChange
 import tornadofx.seconds
-import views.components.NoChatSelected
+import views.components.chattab.NoChatSelected
 import views.screens.ChatTab
 
 class MainController : Controller() {

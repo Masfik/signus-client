@@ -1,4 +1,4 @@
-package views.components
+package views.components.chattab
 
 import misc.ChatSelectionModel
 import models.AuthUserModel

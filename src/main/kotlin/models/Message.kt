@@ -5,8 +5,9 @@ import javafx.beans.property.SimpleObjectProperty
 import tornadofx.ItemViewModel
 import tornadofx.getValue
 import tornadofx.setValue
+import java.time.LocalDateTime
 
-class Message(data: Any, sender: User) {
+class Message(data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.now()) {
   val idProperty = SimpleIntegerProperty(0)
   val id by idProperty
 
@@ -18,6 +19,9 @@ class Message(data: Any, sender: User) {
 
   val statusProperty = SimpleObjectProperty(MessageStatus.SENT)
   var status: MessageStatus by statusProperty
+
+  val dateTimeProperty = SimpleObjectProperty(dateTime)
+  var dateTime: LocalDateTime by dateTimeProperty
 
   val preview
     get() = when (data) {
@@ -33,5 +37,6 @@ class MessageModel : ItemViewModel<Message>() {
   val data: SimpleObjectProperty<Any> = bind(Message::dataProperty)
   val sender: SimpleObjectProperty<User> = bind(Message::senderProperty)
   val status: SimpleObjectProperty<MessageStatus> = bind(Message::statusProperty)
+  val dateTime: SimpleObjectProperty<LocalDateTime> = bind(Message::dateTimeProperty)
   val messagePreview = bind(Message::preview)
 }

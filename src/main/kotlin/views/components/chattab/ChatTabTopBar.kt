@@ -1,4 +1,4 @@
-package views.components
+package views.components.chattab
 
 import javafx.scene.layout.Priority
 import javafx.scene.paint.Color
@@ -6,14 +6,14 @@ import models.AuthUserModel
 import models.Chat
 import models.User
 import tornadofx.*
+import views.components.chatlisttab.ChatList
 import views.stylesheets.ChatTabStylesheet.Companion.closeButton
 import views.stylesheets.MainStylesheet.Companion.partnerName
 import views.stylesheets.ChatTabStylesheet.Companion.partnerStatus
 import views.stylesheets.MainStylesheet.Companion.topBar
-import views.screens.ChatListTab
 import views.stylesheets.ChatTabStylesheet.Companion.partner as partnerID
 
-class ChatTopBar : View() {
+class ChatTabTopBar : View() {
   private val partner = find<AuthUserModel>().activeChat.select(Chat::partnerProperty)
 
   override val root = stackpane {
@@ -40,7 +40,8 @@ class ChatTopBar : View() {
         setId(closeButton)
 
         button("Close").action {
-          find<ChatListTab>().root.selectionModel.clearSelection()
+          // Find ChatList and clear selection
+          find<ChatList>().root.selectionModel.clearSelection()
         }
       }
     }

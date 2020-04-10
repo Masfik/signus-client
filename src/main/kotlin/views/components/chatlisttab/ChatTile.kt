@@ -1,4 +1,4 @@
-package views.components
+package views.components.chatlisttab
 
 import javafx.geometry.Pos
 import models.Chat
