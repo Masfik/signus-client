@@ -4,7 +4,7 @@ import models.AuthUserModel
 import models.Chat
 import tornadofx.*
 
-class ChatList : View("My View") {
+class ChatList : View() {
   private val authUser: AuthUserModel by inject()
 
   override val root = listview<Chat>(authUser.chats) {

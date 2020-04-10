@@ -1,11 +1,14 @@
 package models
 
+import javafx.beans.binding.StringBinding
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleObjectProperty
 import tornadofx.ItemViewModel
 import tornadofx.getValue
 import tornadofx.setValue
+import tornadofx.stringBinding
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class Message(data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.now()) {
   val idProperty = SimpleIntegerProperty(0)
@@ -21,7 +24,16 @@ class Message(data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.n
   var status: MessageStatus by statusProperty
 
   val dateTimeProperty = SimpleObjectProperty(dateTime)
-  var dateTime: LocalDateTime by dateTimeProperty
+  val dateTime: LocalDateTime by dateTimeProperty
+
+  val formattedDateTime: String
+    get() {
+      val now = LocalDateTime.now()
+
+      return if (dateTime.dayOfMonth == now.dayOfMonth && dateTime.month == now.month)
+        "Today at ${dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))}"
+      else dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+    }
 
   val preview
     get() = when (data) {
@@ -38,5 +50,5 @@ class MessageModel : ItemViewModel<Message>() {
   val sender: SimpleObjectProperty<User> = bind(Message::senderProperty)
   val status: SimpleObjectProperty<MessageStatus> = bind(Message::statusProperty)
   val dateTime: SimpleObjectProperty<LocalDateTime> = bind(Message::dateTimeProperty)
-  val messagePreview = bind(Message::preview)
+  val formattedDateTime: StringBinding = stringBinding(dateTime) { item?.formattedDateTime }
 }

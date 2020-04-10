@@ -15,10 +15,9 @@ class Chat(id: Int, partner: User, messageList: List<Message> = ArrayList()) : J
   val messagesProperty = SimpleListProperty(FXCollections.observableArrayList(messageList))
   val messageList: ObservableList<Message> by messagesProperty
 
-  // TODO: val previewProperty
-  val preview
+  val preview: String
     get() = if (messageList.isNotEmpty()) {
-      messageList.last().preview
+      "${messageList.last().preview}"
     } else "No messages"
 }
 
@@ -26,5 +25,5 @@ class ChatModel : ItemViewModel<Chat>() {
   val id: SimpleIntegerProperty = bind(Chat::idProperty)
   val partner: SimpleObjectProperty<User> = bind(Chat::partnerProperty)
   val messageList: SimpleListProperty<Message> = bind(Chat::messagesProperty)
-  val preview = bind(Chat::preview)
+  val preview = stringBinding(messageList) { item?.preview }
 }

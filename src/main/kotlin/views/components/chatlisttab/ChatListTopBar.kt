@@ -26,8 +26,8 @@ class ChatListTopBar : View() {
           hgrow = Priority.ALWAYS
           promptText = "Search"
         }
-        button("", fontAwesome.create(FontAwesome.Glyph.USER_PLUS).color(Color.BLACK))
-        button("", fontAwesome.create(FontAwesome.Glyph.GEAR).color(Color.CHARTREUSE))
+        button("", fontAwesome.create(FontAwesome.Glyph.USER_PLUS))
+        button("", fontAwesome.create(FontAwesome.Glyph.GEAR))
       }
     }
   }
