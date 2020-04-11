@@ -1,5 +1,6 @@
 package views.stylesheets
 
+import javafx.geometry.Pos
 import javafx.scene.effect.DropShadow
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
@@ -18,7 +19,7 @@ class MainStylesheet : Stylesheet() {
     /* STYLING CONST */
     val fontAwesome: GlyphFont = GlyphFontRegistry.font("FontAwesome")
     const val defaultSpacing = 10.0
-    fun ImageView.avatarSize() { fitHeight = 50.0; fitWidth = fitHeight }
+    fun ImageView.avatarSize() { fitHeight = defaultSpacing * 5; fitWidth = fitHeight }
     val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
   }
 
@@ -88,7 +89,6 @@ class MainStylesheet : Stylesheet() {
 
       s(thumb, incrementButton, decrementButton) {
         backgroundColor += SignusTheme.PRIMARY_DARKER
-        //borderColor += box(SignusTheme.PRIMARY)
       }
 
       s(decrementArrow, incrementArrow) {
@@ -102,6 +102,14 @@ class MainStylesheet : Stylesheet() {
       backgroundColor += SignusTheme.PRIMARY
       prefHeight = 50.0.px
       padding = box((defaultSpacing/2).px, defaultSpacing.px, (defaultSpacing/2).px, defaultSpacing.px)
+
+      "VBox" {
+        alignment = Pos.CENTER_LEFT
+      }
+
+      "HBox" {
+        spacing = defaultSpacing.px
+      }
     }
 
     chatTile {

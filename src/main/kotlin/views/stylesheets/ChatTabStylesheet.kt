@@ -20,8 +20,6 @@ class ChatTabStylesheet : Stylesheet() {
   init {
     topBar {
       partner {
-        alignment = Pos.CENTER_LEFT
-
         partnerName {
           fontWeight = FontWeight.BOLD
           padding = box(0.0.px, 0.0.px, 3.0.px, 0.0.px)
@@ -29,7 +27,6 @@ class ChatTabStylesheet : Stylesheet() {
 
         partnerStatus {
           alignment = Pos.CENTER_LEFT
-          spacing = 5.0.px
         }
       }
 
