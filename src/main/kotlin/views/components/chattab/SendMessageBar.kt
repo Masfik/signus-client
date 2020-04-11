@@ -8,7 +8,7 @@ import views.stylesheets.MainStylesheet
 
 class SendMessageBar : View() {
   private val controller: ChatTabController by inject()
-  private var message: TextField by singleAssign()
+  var message: TextField by singleAssign()
 
   override val root = form {
     hbox {

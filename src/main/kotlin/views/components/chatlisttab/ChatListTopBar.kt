@@ -2,12 +2,8 @@ package views.components.chatlisttab
 
 import javafx.geometry.Pos
 import javafx.scene.layout.Priority
-import javafx.scene.paint.Color
-import org.controlsfx.glyphfont.FontAwesome
-import org.controlsfx.glyphfont.Glyph
-import org.controlsfx.glyphfont.GlyphFontRegistry
+import org.controlsfx.glyphfont.FontAwesome.Glyph
 import tornadofx.*
-import tornadofx.controlsfx.glyph
 import views.stylesheets.MainStylesheet
 import views.stylesheets.MainStylesheet.Companion.defaultSpacing
 import views.stylesheets.MainStylesheet.Companion.fontAwesome
@@ -26,8 +22,8 @@ class ChatListTopBar : View() {
           hgrow = Priority.ALWAYS
           promptText = "Search"
         }
-        button("", fontAwesome.create(FontAwesome.Glyph.USER_PLUS))
-        button("", fontAwesome.create(FontAwesome.Glyph.GEAR))
+        button("", fontAwesome.create(Glyph.USER_PLUS))
+        button("", fontAwesome.create(Glyph.GEAR))
       }
     }
   }

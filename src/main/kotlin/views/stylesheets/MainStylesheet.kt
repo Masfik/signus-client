@@ -4,6 +4,7 @@ import javafx.scene.effect.DropShadow
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import org.controlsfx.glyphfont.GlyphFont
 import org.controlsfx.glyphfont.GlyphFontRegistry
 import tornadofx.*
 
@@ -15,7 +16,7 @@ class MainStylesheet : Stylesheet() {
     val partnerName by cssclass()
 
     /* STYLING CONST */
-    val fontAwesome = GlyphFontRegistry.font("FontAwesome")
+    val fontAwesome: GlyphFont = GlyphFontRegistry.font("FontAwesome")
     const val defaultSpacing = 10.0
     fun ImageView.avatarSize() { fitHeight = 50.0; fitWidth = fitHeight }
     val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
@@ -70,19 +71,24 @@ class MainStylesheet : Stylesheet() {
     button {
       backgroundColor += SignusTheme.SECONDARY
       textFill = SignusTheme.TEXT_ON_SECONDARY
+
+      and(hover) {
+        backgroundColor += SignusTheme.SECONDARY.derive(-0.1)
+      }
     }
 
     scrollBar {
       backgroundColor += SignusTheme.PRIMARY
-      fontSize = defaultSpacing - 2.px
+      // Changes size of the scrollbar (including icons)
+      fontSize = defaultSpacing - (defaultSpacing/5).px
 
-      track {
+      s(track) {
         backgroundColor += SignusTheme.PRIMARY
       }
 
       s(thumb, incrementButton, decrementButton) {
         backgroundColor += SignusTheme.PRIMARY_DARKER
-        borderColor += box(SignusTheme.PRIMARY)
+        //borderColor += box(SignusTheme.PRIMARY)
       }
 
       s(decrementArrow, incrementArrow) {

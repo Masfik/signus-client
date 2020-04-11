@@ -34,8 +34,7 @@ class ChatTabStylesheet : Stylesheet() {
       }
 
       closeButton {
-        alignment = Pos.CENTER_LEFT
-        padding = box(0.0.px, defaultSpacing.px, 0.0.px, 0.0.px)
+        alignment = Pos.CENTER_RIGHT
       }
     }
 

@@ -29,15 +29,14 @@ class Message(data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.n
   val formattedDateTime: String
     get() {
       val now = LocalDateTime.now()
-
       return if (dateTime.dayOfMonth == now.dayOfMonth && dateTime.month == now.month)
         "Today at ${dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))}"
       else dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
     }
 
-  val preview
+  val preview: String
     get() = when (data) {
-      is String -> data
+      is String -> "$data"
       // is Image -> "Image"
       // is File -> "Document"
       else -> "Unknown"
