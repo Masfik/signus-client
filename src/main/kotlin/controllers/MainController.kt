@@ -1,12 +1,8 @@
 package controllers
 
 import controllers.ChatTabController.Companion.scrollToBottom
-import javafx.application.Platform
 import models.AuthUserModel
-import tornadofx.Controller
-import tornadofx.ViewTransition
-import tornadofx.onChange
-import tornadofx.seconds
+import tornadofx.*
 import views.components.chattab.NoChatSelected
 import views.components.chattab.SendMessageBar
 import views.screens.ChatTab
@@ -35,7 +31,7 @@ class MainController : Controller() {
         scrollToBottom(authUser)
       } else scrollToBottom(authUser)
       // The SendMessageBar will always request focus when the active chat changes
-      Platform.runLater { find<SendMessageBar>().message.requestFocus() }
+      runLater { find<SendMessageBar>().message.requestFocus() }
     }
   }
 }

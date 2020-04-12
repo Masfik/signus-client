@@ -16,7 +16,6 @@ class AddContact : View("Add Contact") {
     top {
       stackpane {
         addClass(topBar)
-
         vbox {
           hbox {
             username = textfield {

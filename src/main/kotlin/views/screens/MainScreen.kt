@@ -24,7 +24,6 @@ class MainScreen : View("Signus") {
   }
 
   override val root = splitpane {
-    setPrefSize(900.0, 600.0)
     setDividerPositions(0.35)
 
     this += ChatListTab::class

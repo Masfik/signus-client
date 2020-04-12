@@ -19,6 +19,11 @@ class MainStylesheet : Stylesheet() {
     /* STYLING CONST */
     val fontAwesome: GlyphFont = GlyphFontRegistry.font("FontAwesome")
     const val defaultSpacing = 10.0
+    val barProperties = mixin {
+      backgroundColor += SignusTheme.PRIMARY
+      prefHeight = 55.px
+      padding = box((defaultSpacing/2).px, defaultSpacing.px, (defaultSpacing/2).px, defaultSpacing.px)
+    }
     fun ImageView.avatarSize() { fitHeight = defaultSpacing * 5; fitWidth = fitHeight }
     val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
   }
@@ -61,6 +66,7 @@ class MainStylesheet : Stylesheet() {
     }
 
     textField {
+      prefHeight = 33.px
       backgroundColor += SignusTheme.INPUT
       promptTextFill = SignusTheme.PROMPT_TEXT
 
@@ -70,6 +76,7 @@ class MainStylesheet : Stylesheet() {
     }
 
     button {
+      prefHeight = 33.px
       backgroundColor += SignusTheme.SECONDARY
       textFill = SignusTheme.TEXT_ON_SECONDARY
 
@@ -99,9 +106,7 @@ class MainStylesheet : Stylesheet() {
 
     /* APP CLASSES */
     topBar {
-      backgroundColor += SignusTheme.PRIMARY
-      prefHeight = 50.0.px
-      padding = box((defaultSpacing/2).px, defaultSpacing.px, (defaultSpacing/2).px, defaultSpacing.px)
+      +barProperties
 
       "VBox" {
         alignment = Pos.CENTER_LEFT

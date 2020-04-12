@@ -3,8 +3,14 @@ package misc
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.scene.control.MultipleSelectionModel
+import models.Message
 
-class ChatSelectionModel<T> : MultipleSelectionModel<T>() {
+/**
+ * Selection model for messages: the default model for ListViews is not suitable for a chatting application.
+ * This class aims to change how messages can be selected and offer extra functionalities in the future (e.g. copying).
+ * For the time being, it disables selection altogether. WORK IN PROGRESS.
+ */
+class MessageSelectionModel : MultipleSelectionModel<Message>() {
   override fun clearSelection(p0: Int) {}
 
   override fun clearSelection() {}
@@ -17,11 +23,11 @@ class ChatSelectionModel<T> : MultipleSelectionModel<T>() {
 
   override fun selectAll() {}
 
-  override fun getSelectedItems(): ObservableList<T> = FXCollections.emptyObservableList()
+  override fun getSelectedItems(): ObservableList<Message> = FXCollections.emptyObservableList()
 
   override fun select(p0: Int) {}
 
-  override fun select(p0: T) {}
+  override fun select(p0: Message) {}
 
   override fun isEmpty(): Boolean = true
 

@@ -4,6 +4,7 @@ import javafx.geometry.Pos
 import javafx.scene.text.FontPosture
 import javafx.scene.text.FontWeight
 import tornadofx.*
+import views.stylesheets.MainStylesheet.Companion.barProperties
 import views.stylesheets.MainStylesheet.Companion.defaultSpacing
 import views.stylesheets.MainStylesheet.Companion.partnerName
 import views.stylesheets.MainStylesheet.Companion.topBar
@@ -26,6 +27,7 @@ class ChatTabStylesheet : Stylesheet() {
         }
 
         partnerStatus {
+          spacing = (defaultSpacing/2).px
           alignment = Pos.CENTER_LEFT
         }
       }
@@ -46,7 +48,12 @@ class ChatTabStylesheet : Stylesheet() {
     }
 
     form {
-      backgroundColor += SignusTheme.PRIMARY
+      +barProperties
+      alignment = Pos.CENTER
+
+      "HBox" {
+        spacing = defaultSpacing.px
+      }
     }
   }
 }

@@ -15,7 +15,7 @@ class SignusTheme {
     /* Text */
     @JvmStatic var TEXT_ON_BG        = NordSwatch.SNOW_STORM2.color
     @JvmStatic var TEXT_ON_BG_DARKER = NordSwatch.SNOW_STORM0.color
-    @JvmStatic var TEXT_ON_SECONDARY = Color.WHITE
+    @JvmStatic var TEXT_ON_SECONDARY = Color.WHITE!!
 
     /* Input */
     @JvmStatic var INPUT             = NordSwatch.POLAR_NIGHT2.color

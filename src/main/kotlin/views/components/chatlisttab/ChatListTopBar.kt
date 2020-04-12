@@ -18,7 +18,7 @@ class ChatListTopBar : View() {
           promptText = "Search"
         }
         button("", fontAwesome.create(Glyph.USER_PLUS)).action {
-         find<AddContact>().openModal()
+          find<AddContact>().openModal()
         }
         button("", fontAwesome.create(Glyph.GEAR))
       }
