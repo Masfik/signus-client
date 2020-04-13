@@ -2,7 +2,9 @@ package views.components.chatlisttab
 
 import models.AuthUserModel
 import models.Chat
-import tornadofx.*
+import tornadofx.View
+import tornadofx.bindSelected
+import tornadofx.listview
 
 class ChatList : View() {
   private val authUser: AuthUserModel by inject()

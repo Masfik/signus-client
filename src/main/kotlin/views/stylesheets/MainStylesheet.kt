@@ -29,7 +29,7 @@ class MainStylesheet : Stylesheet() {
   }
 
   init {
-    /* UI COMPONENTS*/
+    /* UI COMPONENTS (Nodes) */
     "*" {
       textFill = SignusTheme.TEXT_ON_BG
     }

@@ -28,8 +28,8 @@ class LoginController : Controller() {
     val response: Response
     try {
       response = api.get("user")
-
       val json = response.one()
+
       runLater {
         if (response.ok()) {
           user.item = json.toModel()
