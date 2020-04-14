@@ -1,7 +1,6 @@
 package views.components.loginscreen
 
 import controllers.LoginController
-import org.controlsfx.control.PopOver
 import org.controlsfx.glyphfont.FontAwesome.Glyph.GEAR
 import tornadofx.*
 import tornadofx.controlsfx.popover

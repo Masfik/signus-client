@@ -1,9 +1,13 @@
 package views.stylesheets
 
 import javafx.geometry.Pos
+import javafx.scene.effect.BlurType
 import javafx.scene.effect.DropShadow
+import javafx.scene.effect.Effect
 import javafx.scene.image.ImageView
+import javafx.scene.layout.BorderStrokeStyle
 import javafx.scene.paint.Color
+import javafx.scene.shape.StrokeType
 import javafx.scene.text.FontWeight
 import org.controlsfx.glyphfont.GlyphFont
 import org.controlsfx.glyphfont.GlyphFontRegistry
@@ -26,6 +30,11 @@ class MainStylesheet : Stylesheet() {
     }
     fun ImageView.avatarSize() { fitHeight = defaultSpacing * 5; fitWidth = fitHeight }
     val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
+
+    /* ControlsFX Nodes */
+    val popOver by cssclass("popover")
+    val content by cssclass("content")
+    val border by cssclass("border")
   }
 
   init {
@@ -55,6 +64,7 @@ class MainStylesheet : Stylesheet() {
         and(odd, even) {
           backgroundColor += Color.TRANSPARENT
         }
+
         and(selected) {
           backgroundColor += SignusTheme.SECONDARY
 
@@ -100,6 +110,12 @@ class MainStylesheet : Stylesheet() {
 
       s(decrementArrow, incrementArrow) {
         backgroundColor += SignusTheme.TEXT_ON_BG
+      }
+    }
+
+    popOver {
+      content {
+        backgroundColor += SignusTheme.BACKGROUND
       }
     }
 
