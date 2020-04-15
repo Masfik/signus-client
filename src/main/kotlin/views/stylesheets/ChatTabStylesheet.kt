@@ -6,8 +6,10 @@ import javafx.scene.text.FontWeight
 import tornadofx.*
 import views.stylesheets.MainStylesheet.Companion.barProperties
 import views.stylesheets.MainStylesheet.Companion.defaultSpacing
+import views.stylesheets.MainStylesheet.Companion.hbox
 import views.stylesheets.MainStylesheet.Companion.partnerName
 import views.stylesheets.MainStylesheet.Companion.topBar
+import views.stylesheets.MainStylesheet.Companion.vbox
 
 class ChatTabStylesheet : Stylesheet() {
   companion object {
@@ -16,18 +18,21 @@ class ChatTabStylesheet : Stylesheet() {
     val closeButton by cssid()
     val chatMessage by cssclass()
     val messageTime by cssclass()
+
+    /* STYLING CONST */
+    private const val chatSpacing = defaultSpacing * 1.4
   }
-  
+
   init {
     topBar {
       partner {
         partnerName {
           fontWeight = FontWeight.BOLD
-          padding = box(0.0.px, 0.0.px, 3.0.px, 0.0.px)
+          padding = box(0.px, 0.px, 3.px, 0.px)
         }
 
         partnerStatus {
-          spacing = (defaultSpacing/2).px
+          spacing = (defaultSpacing / 2).px
           alignment = Pos.CENTER_LEFT
         }
       }
@@ -38,12 +43,19 @@ class ChatTabStylesheet : Stylesheet() {
     }
 
     chatMessage {
-      padding = box(defaultSpacing.px)
+      padding = box(chatSpacing - defaultSpacing.px)
+      spacing = chatSpacing.px
 
-      messageTime {
-        fontStyle = FontPosture.ITALIC
-        fontSize = 8.pt
-        textFill = SignusTheme.TEXT_ON_BG_DARKER
+      vbox {
+        hbox {
+          spacing = chatSpacing.px
+
+          messageTime {
+            fontStyle = FontPosture.ITALIC
+            fontSize = 8.pt
+            textFill = SignusTheme.TEXT_ON_BG_DARKER
+          }
+        }
       }
     }
 
@@ -51,7 +63,7 @@ class ChatTabStylesheet : Stylesheet() {
       +barProperties
       alignment = Pos.CENTER
 
-      "HBox" {
+      hbox {
         spacing = defaultSpacing.px
       }
     }

@@ -1,13 +1,9 @@
 package views.stylesheets
 
 import javafx.geometry.Pos
-import javafx.scene.effect.BlurType
 import javafx.scene.effect.DropShadow
-import javafx.scene.effect.Effect
 import javafx.scene.image.ImageView
-import javafx.scene.layout.BorderStrokeStyle
 import javafx.scene.paint.Color
-import javafx.scene.shape.StrokeType
 import javafx.scene.text.FontWeight
 import org.controlsfx.glyphfont.GlyphFont
 import org.controlsfx.glyphfont.GlyphFontRegistry
@@ -20,16 +16,24 @@ class MainStylesheet : Stylesheet() {
     val chatTile by cssclass()
     val partnerName by cssclass()
 
-    /* STYLING CONST */
+    /* MISC */
     val fontAwesome: GlyphFont = GlyphFontRegistry.font("FontAwesome")
+
+    /* STYLING CONST */
     const val defaultSpacing = 10.0
+    val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
+
+    /* STYLING MIXINS */
     val barProperties = mixin {
       backgroundColor += SignusTheme.PRIMARY
       prefHeight = 55.px
       padding = box((defaultSpacing/2).px, defaultSpacing.px, (defaultSpacing/2).px, defaultSpacing.px)
     }
-    fun ImageView.avatarSize() { fitHeight = defaultSpacing * 5; fitWidth = fitHeight }
-    val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
+    fun ImageView.avatarSize() { fitHeight = 50.0; fitWidth = fitHeight }
+
+    /* JavaFX Nodes */
+    val vbox by csselement("VBox")
+    val hbox by csselement("HBox")
 
     /* ControlsFX Nodes */
     val popOver by cssclass("popover")
@@ -61,6 +65,8 @@ class MainStylesheet : Stylesheet() {
       backgroundColor += Color.TRANSPARENT
 
       listCell {
+        padding = box(defaultSpacing.px)
+
         and(odd, even) {
           backgroundColor += Color.TRANSPARENT
         }
@@ -119,23 +125,27 @@ class MainStylesheet : Stylesheet() {
       }
     }
 
+    tooltip {
+      backgroundColor += SignusTheme.BACKGROUND
+    }
+
 
     /* APP CLASSES */
     topBar {
       +barProperties
 
-      "VBox" {
+      vbox {
         alignment = Pos.CENTER_LEFT
       }
 
-      "HBox" {
+      hbox {
         spacing = defaultSpacing.px
       }
     }
 
     chatTile {
-      padding = box(defaultSpacing.px)
-      maxHeight = 50.0.px
+      maxHeight = 50.px
+      spacing = defaultSpacing.px
     }
 
     partnerName {

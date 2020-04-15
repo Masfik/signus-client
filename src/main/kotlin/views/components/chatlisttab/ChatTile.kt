@@ -7,7 +7,6 @@ import models.User
 import tornadofx.*
 import views.stylesheets.MainStylesheet.Companion.avatarSize
 import views.stylesheets.MainStylesheet.Companion.chatTile
-import views.stylesheets.MainStylesheet.Companion.defaultSpacing
 import views.stylesheets.MainStylesheet.Companion.partnerName
 
 class ChatTile : ListCellFragment<Chat>() {
@@ -15,7 +14,6 @@ class ChatTile : ListCellFragment<Chat>() {
 
   override val root = hbox {
     addClass(chatTile)
-    spacing = defaultSpacing
 
     run {
       imageview("user.png").avatarSize()

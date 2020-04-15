@@ -15,9 +15,6 @@ class AuthUser(name: String, username: String, email: String) : User(name, usern
   val chatsProperty = SimpleListProperty<Chat>(FXCollections.observableArrayList(ArrayList()))
   val chats: ObservableList<Chat> by chatsProperty
 
-  val contactsProperty = SimpleListProperty<User>(FXCollections.observableArrayList(ArrayList()))
-  val contacts: ObservableList<User> by contactsProperty
-
   val activeChatProperty = SimpleObjectProperty<Chat>()
   var activeChat: Chat by activeChatProperty
 
@@ -25,7 +22,6 @@ class AuthUser(name: String, username: String, email: String) : User(name, usern
     super.updateModel(json)
     with(json) {
       chats.setAll(getJsonArray("chats").toModel())
-      contacts.setAll(getJsonArray("users").toModel())
     }
   }
 }
@@ -36,6 +32,5 @@ class AuthUserModel : ItemViewModel<AuthUser>() {
   val email: SimpleStringProperty = bind(AuthUser::emailProperty)
   val status: SimpleObjectProperty<UserStatus> = bind(AuthUser::statusProperty)
   val chats: SimpleListProperty<Chat> = bind(AuthUser::chatsProperty)
-  val contacts: SimpleListProperty<User> = bind(AuthUser::contactsProperty)
   val activeChat: SimpleObjectProperty<Chat> = bind(AuthUser::activeChatProperty)
 }
