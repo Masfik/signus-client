@@ -47,7 +47,11 @@ class ChatTabStylesheet : Stylesheet() {
       spacing = chatSpacing.px
 
       vbox {
+        // Vertical spacing between the name of the user and message
+        spacing = 3.px
+
         hbox {
+          // Horizontal spacing between the name of the user and the message time
           spacing = chatSpacing.px
 
           messageTime {

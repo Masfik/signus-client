@@ -20,6 +20,9 @@ class SignusTheme {
     /* Input */
     @JvmStatic var INPUT             = NordSwatch.POLAR_NIGHT2.color
     @JvmStatic var PROMPT_TEXT       = NordSwatch.POLAR_NIGHT5.color
+
+    /* Generic colours */
+    @JvmStatic var RED               = NordSwatch.AURORA0.color
   }
 }
 

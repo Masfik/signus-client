@@ -18,6 +18,7 @@ dependencies {
     compile 'no.tornado:tornadofx:1.7.20'
     compile 'no.tornado:tornadofx-controlsfx:0.1'
     compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.4'
+    implementation 'com.tinder.scarlet:scarlet:0.1.9'
 }
 
 compileKotlin {

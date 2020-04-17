@@ -35,9 +35,15 @@ class MainStylesheet : Stylesheet() {
     val vbox by csselement("VBox")
     val hbox by csselement("HBox")
 
-    /* ControlsFX Nodes */
+    /* ControlsFX PopOver */
     val popOver by cssclass("popover")
     val content by cssclass("content")
+    val title by cssclass("title")
+    val icon by cssclass("icon")
+    val graphics by cssclass("graphics")
+    val circle by cssclass("circle")
+    val line by cssclass("line")
+    val text by cssclass("text")
     val border by cssclass("border")
   }
 
@@ -122,11 +128,32 @@ class MainStylesheet : Stylesheet() {
     popOver {
       content {
         backgroundColor += SignusTheme.BACKGROUND
+
+        title {
+          text {
+            unsafe("-fx-text-fill", raw(SignusTheme.TEXT_ON_BG_DARKER.css + "!important"))
+          }
+
+          // Close button
+          icon {
+            graphics {
+              circle {
+                unsafe("-fx-fill", raw(SignusTheme.RED.css + "!important"))
+              }
+            }
+          }
+        }
+      }
+
+      // Arrow
+      border {
+        strokeWidth = 0.px
+        unsafe("-fx-fill", raw(SignusTheme.BACKGROUND.css + "!important"))
       }
     }
 
     tooltip {
-      backgroundColor += SignusTheme.BACKGROUND
+      backgroundColor += SignusTheme.BACKGROUND.darker()
     }
 
 
