@@ -1,5 +1,6 @@
 package controllers
 
+import models.AuthUserModel
 import tornadofx.Controller
 
 class SettingsController : Controller() {
@@ -7,7 +8,8 @@ class SettingsController : Controller() {
 
   }
 
-  fun save() {
-
+  fun save(authUser: AuthUserModel) {
+    println("Saved")
+    authUser.commit()
   }
 }

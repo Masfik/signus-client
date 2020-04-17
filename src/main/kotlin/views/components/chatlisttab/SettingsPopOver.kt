@@ -38,7 +38,14 @@ class SettingsPopOver : View() {
         }
         button("SAVE") {
           useMaxWidth = true
-          action { controller.save() }
+
+          enableWhen {
+            authUser.dirty.and(
+              authUser.dirtyStateFor(AuthUserModel::name)
+                .or(authUser.dirtyStateFor(AuthUserModel::username))
+            )
+          }
+          action { controller.save(authUser) }
         }
       }
     }

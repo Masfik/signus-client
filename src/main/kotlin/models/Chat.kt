@@ -1,5 +1,6 @@
 package models
 
+import javafx.beans.binding.StringBinding
 import javafx.beans.property.*
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
@@ -16,14 +17,12 @@ class Chat(id: Int, partner: User, messageList: List<Message> = ArrayList()) : J
   val messageList: ObservableList<Message> by messagesProperty
 
   val preview: String
-    get() = if (messageList.isNotEmpty())
-      messageList.last().preview
-    else "No messages"
+    get() = if (messageList.isNotEmpty()) messageList.last().preview else "No messages"
 }
 
 class ChatModel : ItemViewModel<Chat>() {
   val id: SimpleIntegerProperty = bind(Chat::idProperty)
   val partner: SimpleObjectProperty<User> = bind(Chat::partnerProperty)
   val messageList: SimpleListProperty<Message> = bind(Chat::messagesProperty)
-  val preview = stringBinding(messageList) { item?.preview }
+  val preview: StringBinding = stringBinding(messageList) { item?.preview }
 }
