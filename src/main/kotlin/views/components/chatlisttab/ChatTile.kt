@@ -21,7 +21,7 @@ class ChatTile : ListCellFragment<Chat>() {
     vbox {
       alignment = Pos.CENTER_LEFT
 
-      label(chat.partner.select(User::nameProperty)).addClass(partnerName)
+      label(chat.partner.select(User::firstNameProperty)).addClass(partnerName)
       label(chat.preview)
     }
   }

@@ -1,7 +1,7 @@
 package models
 
 import javafx.beans.binding.StringBinding
-import javafx.beans.property.SimpleIntegerProperty
+import javafx.beans.property.Property
 import javafx.beans.property.SimpleObjectProperty
 import tornadofx.ItemViewModel
 import tornadofx.getValue
@@ -10,10 +10,7 @@ import tornadofx.stringBinding
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class Message(data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.now()) {
-  val idProperty = SimpleIntegerProperty(0)
-  val id by idProperty
-
+class Message(var id: Int? = null, data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.now()) {
   val dataProperty = SimpleObjectProperty(data)
   var data: Any by dataProperty
 
@@ -44,7 +41,7 @@ class Message(data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.n
 }
 
 class MessageModel : ItemViewModel<Message>() {
-  val id: SimpleIntegerProperty = bind(Message::idProperty)
+  val id: Property<Int> = bind(Message::id)
   val data: SimpleObjectProperty<Any> = bind(Message::dataProperty)
   val sender: SimpleObjectProperty<User> = bind(Message::senderProperty)
   val status: SimpleObjectProperty<MessageStatus> = bind(Message::statusProperty)

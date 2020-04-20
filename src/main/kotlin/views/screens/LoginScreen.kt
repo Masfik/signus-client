@@ -11,11 +11,7 @@ class LoginScreen : View("Signus - Login") {
     addStylesheet(LoginStylesheet::class)
     setPrefSize(900.0, 600.0)
 
-    top {
-      paddingAll = defaultSpacing
-      this += LoginTopBar::class
-    }
-
+    top<LoginTopBar>().paddingAll = defaultSpacing
     center<LoginForm>()
   }
 }

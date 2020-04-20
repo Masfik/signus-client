@@ -17,7 +17,14 @@ class Chat(id: Int, partner: User, messageList: List<Message> = ArrayList()) : J
   val messageList: ObservableList<Message> by messagesProperty
 
   val preview: String
-    get() = if (messageList.isNotEmpty()) messageList.last().preview else "No messages"
+    get() {
+      return if (messageList.isNotEmpty()) {
+        val lastMessage = messageList.last()
+
+        if (lastMessage.sender.id == partner.id) lastMessage.preview
+        else "You ➜ ${lastMessage.preview}"
+      } else "No messages"
+    }
 }
 
 class ChatModel : ItemViewModel<Chat>() {

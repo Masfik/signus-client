@@ -1,20 +1,27 @@
 package controllers
 
 import javafx.beans.property.SimpleStringProperty
-import models.UserModel
+import models.AuthUser
+import models.AuthUserModel
+import services.authentication.AuthService
+import services.authentication.SignusAuthService
 import tornadofx.*
 import tornadofx.Rest.Response
 import views.screens.MainScreen
 import views.screens.LoginScreen
 
 class LoginController : Controller() {
-  val statusProperty = SimpleStringProperty("")
-  private var status by statusProperty
-
+  // Authentication service (this can be replaced in the future by some other auth provider)
+  val authService: AuthService<AuthUser> = SignusAuthService
+  // Endpoint
   val endpointProperty = SimpleStringProperty("https://")
-  private var endpoint by statusProperty
-
-  private val user: UserModel by inject()
+  private var endpoint by endpointProperty
+  // Status
+  val errorProperty = SimpleStringProperty()
+  private var error by errorProperty
+  // AuthUser Model
+  private val authUser: AuthUserModel by inject()
+  // Rest API
   private val api: Rest by inject()
 
   init {
@@ -22,7 +29,7 @@ class LoginController : Controller() {
   }
 
   fun login(username: String, password: String) {
-    runLater { status = "" }
+    runLater { error = "" }
     api.setBasicAuth(username, password)
 
     val response: Response
@@ -32,9 +39,9 @@ class LoginController : Controller() {
 
       runLater {
         if (response.ok()) {
-          user.item = json.toModel()
+          authUser.item = json.toModel()
           find<LoginScreen>().replaceWith(MainScreen::class, sizeToScene = true, centerOnScreen = true)
-        } else status = json.string("message") ?: "Login failed"
+        } else error = json.string("message") ?: "Login failed"
       }
     } catch (e: RestException) {
       runLater {

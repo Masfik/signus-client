@@ -20,7 +20,7 @@ class ChatTabController : Controller() {
     if (textField.text.isEmpty()) return
 
     val messages = authUser.activeChat.select(Chat::messagesProperty).value
-    messages.add(Message(textField.text, authUser.item))
+    messages.add(Message(0, textField.text, authUser.item))
 
     textField.text = ""
     scrollToBottom(authUser)

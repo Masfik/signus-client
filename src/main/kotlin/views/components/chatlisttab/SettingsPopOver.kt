@@ -31,19 +31,21 @@ class SettingsPopOver : View() {
     vbox {
       form {
         fieldset("Name") {
-          textfield(authUser.name)
+          textfield(authUser.firstName).required()
         }
         fieldset("Username") {
-          textfield(authUser.username)
+          textfield(authUser.username).required()
         }
         button("SAVE") {
           useMaxWidth = true
 
           enableWhen {
-            authUser.dirty.and(
-              authUser.dirtyStateFor(AuthUserModel::name)
-                .or(authUser.dirtyStateFor(AuthUserModel::username))
-            )
+            authUser.firstName.isNotEmpty
+              .and(authUser.username.isNotEmpty)
+              .and(
+                authUser.dirtyStateFor(AuthUserModel::firstName)
+                  .or(authUser.dirtyStateFor(AuthUserModel::username))
+              )
           }
           action { controller.save(authUser) }
         }

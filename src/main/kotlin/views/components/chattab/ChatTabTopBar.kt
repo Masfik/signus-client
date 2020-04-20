@@ -24,10 +24,9 @@ class ChatTabTopBar : View() {
         setId(partnerID)
         hgrow = Priority.ALWAYS
 
-        label(partner.select(User::nameProperty)).addClass(partnerName)
+        label(partner.select(User::firstNameProperty)).addClass(partnerName)
         hbox {
           setId(partnerStatus)
-
           circle {
             radius = 5.0
             fill = Color.GRAY
@@ -35,7 +34,6 @@ class ChatTabTopBar : View() {
           label("Offline")
         }
       }
-
       vbox {
         setId(closeButton)
 

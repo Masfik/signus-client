@@ -2,9 +2,8 @@ package views.components.loginscreen
 
 import controllers.LoginController
 import javafx.beans.property.SimpleStringProperty
-import javafx.scene.paint.Color
-import javafx.scene.text.FontWeight
 import tornadofx.*
+import views.stylesheets.LoginStylesheet.Companion.error
 
 class LoginForm : View() {
   private val model = ViewModel()
@@ -13,7 +12,7 @@ class LoginForm : View() {
 
   private val controller: LoginController by inject()
 
-  override val root = stackpane {
+  override val root = vbox {
     form {
       fieldset("Username") {
         textfield(username).required()
@@ -22,9 +21,8 @@ class LoginForm : View() {
         passwordfield(password).required()
       }
       button("Login") {
-        enableWhen(model.valid)
         isDefaultButton = true
-
+        enableWhen(model.valid)
         action {
           runAsyncWithProgress {
             controller.login(username.value, password.value)
@@ -32,12 +30,6 @@ class LoginForm : View() {
         }
       }
     }
-    label(controller.statusProperty) {
-      style {
-        paddingTop = 10
-        textFill = Color.RED
-        fontWeight = FontWeight.BOLD
-      }
-    }
+    label(controller.errorProperty).setId(error)
   }
 }

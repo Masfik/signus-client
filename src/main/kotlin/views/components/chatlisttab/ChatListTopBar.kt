@@ -11,10 +11,8 @@ import views.stylesheets.MainStylesheet.Companion.fontAwesome
 
 class ChatListTopBar : View() {
   private val authUser: AuthUserModel by inject()
-
-  companion object {
-    val settingsPopOver by cssid()
-  }
+  // Settings title that updates whenever the name changes
+  private val settingsTitle = stringBinding(authUser.firstName) { "Settings: ${this.value}" }
 
   override val root = stackpane {
     addClass(MainStylesheet.topBar)
@@ -26,9 +24,9 @@ class ChatListTopBar : View() {
           promptText = "Search"
         }
         button("", fontAwesome.create(Glyph.GEAR)) {
-          tooltip("Settings ${runLater { authUser.username.value }}")
+          tooltip().textProperty().bind(settingsTitle)
           popover {
-            title = "Settings"
+            titleProperty().bind(settingsTitle)
             isHeaderAlwaysVisible = true
             find<SettingsPopOver>().root
           }

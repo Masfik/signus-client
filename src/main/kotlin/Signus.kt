@@ -4,4 +4,4 @@ import views.stylesheets.MainStylesheet
 
 class Signus : App(LoginScreen::class, MainStylesheet::class)
 
-fun main(args: Array<String>) = launch<Signus>(args)
+fun main() = launch<Signus>()

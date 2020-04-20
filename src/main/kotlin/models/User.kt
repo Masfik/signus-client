@@ -1,5 +1,6 @@
 package models
 
+import javafx.beans.property.ReadOnlyProperty
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
@@ -7,9 +8,12 @@ import javax.json.JsonObject
 import tornadofx.getValue
 import tornadofx.setValue
 
-open class User(name: String, username: String, email: String) : JsonModel {
-  val nameProperty = SimpleStringProperty(name)
-  var name: String? by nameProperty
+open class User(var id: Int? = null, name: String, username: String, email: String) : JsonModel {
+  val firstNameProperty = SimpleStringProperty(name)
+  var firstName: String? by firstNameProperty
+
+  val lastNameProperty = SimpleStringProperty()
+  var lastName: String? by lastNameProperty
 
   val usernameProperty = SimpleStringProperty(username)
   var username: String? by usernameProperty
@@ -17,21 +21,22 @@ open class User(name: String, username: String, email: String) : JsonModel {
   val emailProperty = SimpleStringProperty(email)
   var email: String? by emailProperty
 
-  val statusProperty = SimpleObjectProperty<UserStatus>(UserStatus.OFFLINE)
+  val statusProperty = SimpleObjectProperty(UserStatus.OFFLINE)
   var status: UserStatus by statusProperty
 
   override fun updateModel(json: JsonObject) {
     with(json) {
-      name = string("name")
+      firstName = string("firstName")
+      lastName = string("lastName")
       username = string("username")
       email = string("email")
-      status = UserStatus.valueOf(string("status") ?: "OFFLINE")
     }
   }
 }
 
-class UserModel(user: User? = null) : ItemViewModel<User>(user) {
-  val name: SimpleStringProperty = bind(User::nameProperty)
+open class UserModel : ItemViewModel<User>() {
+  val id: ReadOnlyProperty<Int> = bind(User::id)
+  val firstName: SimpleStringProperty = bind(User::firstNameProperty)
   val username: SimpleStringProperty = bind(User::usernameProperty)
   val email: SimpleStringProperty = bind(User::emailProperty)
   val status: SimpleObjectProperty<UserStatus> = bind(User::statusProperty)

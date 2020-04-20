@@ -11,7 +11,7 @@ import views.stylesheets.MainStylesheet.Companion.partnerName as partnerNameClas
 
 class MessageTile : ListCellFragment<Message>() {
   private val message = MessageModel().bindTo(this)
-  private val partnerName = message.sender.select(User::nameProperty)
+  private val partnerName = message.sender.select(User::firstNameProperty)
   private val data = message.data
 
   override val root = hbox {
@@ -25,7 +25,7 @@ class MessageTile : ListCellFragment<Message>() {
         label(partnerName).addClass(partnerNameClass)
         label(message.formattedDateTime).addClass(messageTime)
       }
-      // TODO: For the moment, only text is show to the user
+      // TODO: For the moment, only text is shown to the user
       label(data).isWrapText = true
     }
   }
