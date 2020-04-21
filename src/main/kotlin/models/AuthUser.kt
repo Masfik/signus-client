@@ -1,5 +1,6 @@
 package models
 
+import javafx.beans.binding.StringBinding
 import javafx.beans.property.Property
 import javafx.beans.property.SimpleListProperty
 import javafx.beans.property.SimpleObjectProperty
@@ -12,7 +13,9 @@ import tornadofx.toModel
 import javax.json.JsonObject
 import tornadofx.setValue
 
-class AuthUser(id: Int? = null, name: String, username: String, email: String) : User(id, name, username, email) {
+class AuthUser(
+  firstName: String, username: String, email: String, id: Int? = null, lastName: String? = ""
+) : User(firstName, username, email, id, lastName) {
   val chatsProperty = SimpleListProperty<Chat>(FXCollections.observableArrayList(ArrayList()))
   val chats: ObservableList<Chat> by chatsProperty
 
@@ -31,6 +34,7 @@ class AuthUserModel : ItemViewModel<AuthUser>() {
   val id: Property<Int> = bind(AuthUser::id)
   val firstName: SimpleStringProperty = bind(AuthUser::firstNameProperty)
   val lastName: SimpleStringProperty = bind(AuthUser::lastNameProperty)
+  val fullName: Property<StringBinding> = bind(AuthUser::fullNameProperty)
   val username: SimpleStringProperty = bind(AuthUser::usernameProperty)
   val email: SimpleStringProperty = bind(AuthUser::emailProperty)
   val status: SimpleObjectProperty<UserStatus> = bind(AuthUser::statusProperty)

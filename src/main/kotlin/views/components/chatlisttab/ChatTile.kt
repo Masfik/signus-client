@@ -5,12 +5,13 @@ import models.Chat
 import models.ChatModel
 import models.User
 import tornadofx.*
+import views.stylesheets.MainStylesheet.Companion.recipientName as recipientNameClass
 import views.stylesheets.MainStylesheet.Companion.avatarSize
 import views.stylesheets.MainStylesheet.Companion.chatTile
-import views.stylesheets.MainStylesheet.Companion.partnerName
 
 class ChatTile : ListCellFragment<Chat>() {
   private val chat = ChatModel().bindTo(this)
+  private val recipientName = chat.recipient.select(User::fullNameProperty)
 
   override val root = hbox {
     addClass(chatTile)
@@ -21,7 +22,7 @@ class ChatTile : ListCellFragment<Chat>() {
     vbox {
       alignment = Pos.CENTER_LEFT
 
-      label(chat.partner.select(User::firstNameProperty)).addClass(partnerName)
+      label(recipientName).addClass(recipientNameClass)
       label(chat.preview)
     }
   }

@@ -30,8 +30,11 @@ class SettingsPopOver : View() {
 
     vbox {
       form {
-        fieldset("Name") {
+        fieldset("First name") {
           textfield(authUser.firstName).required()
+        }
+        fieldset("Last name") {
+          textfield(authUser.lastName)
         }
         fieldset("Username") {
           textfield(authUser.username).required()
@@ -44,6 +47,7 @@ class SettingsPopOver : View() {
               .and(authUser.username.isNotEmpty)
               .and(
                 authUser.dirtyStateFor(AuthUserModel::firstName)
+                  .or(authUser.dirtyStateFor(AuthUserModel::lastName))
                   .or(authUser.dirtyStateFor(AuthUserModel::username))
               )
           }

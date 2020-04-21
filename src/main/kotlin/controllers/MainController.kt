@@ -16,13 +16,13 @@ class MainController : Controller() {
 
   // TODO: Temporary placeholder data
   init {
-    val authUser = AuthUser(0, "Masfik", "Masfik", "email@email.com")
-    val tom = User(1, "Tom", "Caedan", "tom")
+    val authUser = AuthUser("Masfik", "Masfik", "email@email.com", 0)
+    val tom = User("Tom", "Caedan", "tom", 1)
     val tomChat = Chat(242, tom)
 
     authUser.chats.addAll(
       tomChat,
-      Chat(2, User(2, "Masfik", "Username", "email"))
+      Chat(2, User("Masfik", "Username", "email", 2))
     )
 
     this.authUser.item = authUser

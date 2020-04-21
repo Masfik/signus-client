@@ -14,7 +14,7 @@ class MainStylesheet : Stylesheet() {
     /* CLASSES AND IDs */
     val topBar by cssclass()
     val chatTile by cssclass()
-    val partnerName by cssclass()
+    val recipientName by cssclass()
 
     /* MISC */
     val fontAwesome: GlyphFont = GlyphFontRegistry.font("FontAwesome")
@@ -175,7 +175,7 @@ class MainStylesheet : Stylesheet() {
       spacing = defaultSpacing.px
     }
 
-    partnerName {
+    recipientName {
       fontWeight = FontWeight.BOLD
     }
   }

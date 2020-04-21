@@ -7,14 +7,14 @@ import tornadofx.*
 import views.stylesheets.MainStylesheet.Companion.barProperties
 import views.stylesheets.MainStylesheet.Companion.defaultSpacing
 import views.stylesheets.MainStylesheet.Companion.hbox
-import views.stylesheets.MainStylesheet.Companion.partnerName
+import views.stylesheets.MainStylesheet.Companion.recipientName
 import views.stylesheets.MainStylesheet.Companion.topBar
 import views.stylesheets.MainStylesheet.Companion.vbox
 
 class ChatTabStylesheet : Stylesheet() {
   companion object {
-    val partner by cssid()
-    val partnerStatus by cssid()
+    val recipient by cssid()
+    val recipientStatus by cssid()
     val closeButton by cssid()
     val chatMessage by cssclass()
     val messageTime by cssclass()
@@ -25,13 +25,13 @@ class ChatTabStylesheet : Stylesheet() {
 
   init {
     topBar {
-      partner {
-        partnerName {
+      recipient {
+        recipientName {
           fontWeight = FontWeight.BOLD
           padding = box(0.px, 0.px, 3.px, 0.px)
         }
 
-        partnerStatus {
+        recipientStatus {
           spacing = (defaultSpacing / 2).px
           alignment = Pos.CENTER_LEFT
         }

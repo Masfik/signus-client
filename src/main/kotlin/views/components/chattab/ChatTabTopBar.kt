@@ -8,13 +8,13 @@ import models.User
 import tornadofx.*
 import views.components.chatlisttab.ChatList
 import views.stylesheets.ChatTabStylesheet.Companion.closeButton
-import views.stylesheets.MainStylesheet.Companion.partnerName
-import views.stylesheets.ChatTabStylesheet.Companion.partnerStatus
+import views.stylesheets.MainStylesheet.Companion.recipientName
+import views.stylesheets.ChatTabStylesheet.Companion.recipientStatus
 import views.stylesheets.MainStylesheet.Companion.topBar
-import views.stylesheets.ChatTabStylesheet.Companion.partner as partnerID
+import views.stylesheets.ChatTabStylesheet.Companion.recipient as partnerID
 
 class ChatTabTopBar : View() {
-  private val partner = find<AuthUserModel>().activeChat.select(Chat::partnerProperty)
+  private val recipient = find<AuthUserModel>().activeChat.select(Chat::recipientProperty)
 
   override val root = stackpane {
     addClass(topBar)
@@ -24,9 +24,9 @@ class ChatTabTopBar : View() {
         setId(partnerID)
         hgrow = Priority.ALWAYS
 
-        label(partner.select(User::firstNameProperty)).addClass(partnerName)
+        label(recipient.select(User::firstNameProperty)).addClass(recipientName)
         hbox {
-          setId(partnerStatus)
+          setId(recipientStatus)
           circle {
             radius = 5.0
             fill = Color.GRAY
