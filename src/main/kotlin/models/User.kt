@@ -11,25 +11,30 @@ import javax.json.JsonObject
 open class User(
   firstName: String, username: String, email: String, var id: Int? = null, lastName: String? = null
 ) : JsonModel {
+  // First name
   val firstNameProperty = SimpleStringProperty(firstName)
   var firstName: String? by firstNameProperty
 
+  // Last Name
   val lastNameProperty = SimpleStringProperty(lastName)
   var lastName: String? by lastNameProperty
 
-  // Automatically adapts when either properties change.
+  // Full name: automatically adapts when either names change.
   val fullNameProperty = stringBinding(firstNameProperty, lastNameProperty) {
     if (lastName == null) firstName
     else "${this@User.firstName} ${this@User.lastName}"
   }
   val fullName: String by fullNameProperty
 
+  // Username
   val usernameProperty = SimpleStringProperty(username)
   var username: String? by usernameProperty
 
+  // Email
   val emailProperty = SimpleStringProperty(email)
   var email: String? by emailProperty
 
+  // Status (ONLINE, OFFLINE, BUSY)
   val statusProperty = SimpleObjectProperty(UserStatus.OFFLINE)
   var status: UserStatus by statusProperty
 
@@ -43,7 +48,7 @@ open class User(
   }
 }
 
-open class UserModel : ItemViewModel<User>() {
+class UserModel : ItemViewModel<User>() {
   val id: ReadOnlyProperty<Int> = bind(User::id)
   val firstName: SimpleStringProperty = bind(User::firstNameProperty)
   val lastName: SimpleStringProperty = bind(User::lastNameProperty)

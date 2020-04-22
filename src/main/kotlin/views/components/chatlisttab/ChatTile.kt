@@ -12,6 +12,7 @@ import views.stylesheets.MainStylesheet.Companion.chatTile
 class ChatTile : ListCellFragment<Chat>() {
   private val chat = ChatModel().bindTo(this)
   private val recipientName = chat.recipient.select(User::fullNameProperty)
+  private val preview = chat.select(Chat::previewProperty)
 
   override val root = hbox {
     addClass(chatTile)
@@ -23,7 +24,7 @@ class ChatTile : ListCellFragment<Chat>() {
       alignment = Pos.CENTER_LEFT
 
       label(recipientName).addClass(recipientNameClass)
-      label(chat.preview)
+      label(preview)
     }
   }
 }

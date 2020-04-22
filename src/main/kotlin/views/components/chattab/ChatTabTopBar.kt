@@ -27,6 +27,7 @@ class ChatTabTopBar : View() {
         label(recipient.select(User::firstNameProperty)).addClass(recipientName)
         hbox {
           setId(recipientStatus)
+
           circle {
             radius = 5.0
             fill = Color.GRAY

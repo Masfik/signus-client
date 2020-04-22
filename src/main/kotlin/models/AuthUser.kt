@@ -16,9 +16,11 @@ import tornadofx.setValue
 class AuthUser(
   firstName: String, username: String, email: String, id: Int? = null, lastName: String? = ""
 ) : User(firstName, username, email, id, lastName) {
+  // Chats
   val chatsProperty = SimpleListProperty<Chat>(FXCollections.observableArrayList(ArrayList()))
   val chats: ObservableList<Chat> by chatsProperty
 
+  // The active chat currently selected from the list in the sidebar
   val activeChatProperty = SimpleObjectProperty<Chat>()
   var activeChat: Chat by activeChatProperty
 

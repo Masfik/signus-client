@@ -11,19 +11,19 @@ import tornadofx.*
 
 class MainStylesheet : Stylesheet() {
   companion object {
-    /* CLASSES AND IDs */
+    /* Classes and IDs */
     val topBar by cssclass()
     val chatTile by cssclass()
     val recipientName by cssclass()
 
-    /* MISC */
+    /* Misc */
     val fontAwesome: GlyphFont = GlyphFontRegistry.font("FontAwesome")
 
-    /* STYLING CONST */
+    /* Styling const */
     const val defaultSpacing = 10.0
-    val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
+    private val dropShadow = DropShadow(5.0, SignusTheme.PRIMARY_DARKER)
 
-    /* STYLING MIXINS */
+    /* Styling mixins */
     val barProperties = mixin {
       backgroundColor += SignusTheme.PRIMARY
       prefHeight = 55.px
@@ -145,7 +145,7 @@ class MainStylesheet : Stylesheet() {
         }
       }
 
-      // Arrow
+      // The small arrow (caret) that appears on the left of the PopOver
       border {
         strokeWidth = 0.px
         unsafe("-fx-fill", raw(SignusTheme.BACKGROUND.css + "!important"))
