@@ -3,6 +3,7 @@ package controllers
 import javafx.beans.property.SimpleStringProperty
 import models.AuthUser
 import models.AuthUserModel
+import models.ServerSettingsModel
 import services.authentication.AuthService
 import services.authentication.SignusAuthService
 import tornadofx.*
@@ -13,20 +14,14 @@ import views.screens.LoginScreen
 class LoginController : Controller() {
   // Authentication service (this can be replaced in the future by some other auth provider)
   val authService: AuthService<AuthUser> = SignusAuthService
-  // Endpoint
-  val endpointProperty = SimpleStringProperty("https://")
-  private var endpoint by endpointProperty
+  // Models
+  private val serverSettings: ServerSettingsModel by inject()
+  private val authUser: AuthUserModel by inject()
   // Status
   val errorProperty = SimpleStringProperty()
   private var error by errorProperty
-  // AuthUser Model
-  private val authUser: AuthUserModel by inject()
   // Rest API
   private val api: Rest by inject()
-
-  init {
-    api.baseURI = endpoint
-  }
 
   fun login(username: String, password: String) {
     runLater { error = "" }
@@ -45,7 +40,7 @@ class LoginController : Controller() {
       }
     } catch (e: RestException) {
       runLater {
-        // status = "Unreachable Endpoint"
+        error = "Unreachable Endpoint"
         // TODO: change this
         find<LoginScreen>().replaceWith(MainScreen::class, centerOnScreen = true)
       }

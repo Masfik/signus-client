@@ -1,4 +1,4 @@
-package views.components.chatlisttab
+package views.screens
 
 import controllers.SettingsController
 import javafx.geometry.Pos
@@ -7,7 +7,7 @@ import tornadofx.*
 import views.stylesheets.MainStylesheet.Companion.avatarSize
 import views.stylesheets.MainStylesheet.Companion.defaultSpacing
 
-class SettingsPopOver : View() {
+class SettingsScreen : View() {
   private val controller: SettingsController by inject()
   private val authUser: AuthUserModel by inject()
 

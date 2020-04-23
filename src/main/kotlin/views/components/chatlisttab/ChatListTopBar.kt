@@ -6,6 +6,7 @@ import org.controlsfx.glyphfont.FontAwesome.Glyph
 import tornadofx.*
 import tornadofx.controlsfx.popover
 import tornadofx.controlsfx.showPopover
+import views.screens.SettingsScreen
 import views.stylesheets.MainStylesheet
 import views.stylesheets.MainStylesheet.Companion.fontAwesome
 
@@ -28,7 +29,7 @@ class ChatListTopBar : View() {
           popover {
             titleProperty().bind(settingsTitle)
             isHeaderAlwaysVisible = true
-            find<SettingsPopOver>().root
+            find<SettingsScreen>().root
           }
           action { showPopover() }
         }
