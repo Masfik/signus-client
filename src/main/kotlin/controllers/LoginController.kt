@@ -35,14 +35,14 @@ class LoginController : Controller() {
       runLater {
         if (response.ok()) {
           authUser.item = json.toModel()
-          find<LoginScreen>().replaceWith(MainScreen::class, sizeToScene = true, centerOnScreen = true)
+          find<LoginScreen>().replaceWith(MainScreen::class)
         } else error = json.string("message") ?: "Login failed"
       }
     } catch (e: RestException) {
       runLater {
         error = "Unreachable Endpoint"
         // TODO: change this
-        find<LoginScreen>().replaceWith(MainScreen::class, centerOnScreen = true)
+        find<LoginScreen>().replaceWith(MainScreen::class)
       }
     }
   }

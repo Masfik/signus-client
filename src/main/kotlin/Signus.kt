@@ -1,4 +1,5 @@
-import tornadofx.*
+import tornadofx.App
+import tornadofx.launch
 import views.screens.LoginScreen
 import views.stylesheets.MainStylesheet
 

@@ -1,4 +1,4 @@
-package services
+package services.chat
 
 import com.tinder.scarlet.Message
 import com.tinder.scarlet.WebSocket
@@ -7,6 +7,7 @@ import com.tinder.scarlet.ws.Send
 import kotlinx.coroutines.channels.ReceiveChannel
 import models.Chat
 import models.User
+import services.chat.updates.MessageUpdate
 
 interface ChatService {
   @Receive
@@ -27,7 +28,7 @@ interface ChatService {
   fun sendMessage(chat: Chat, message: Message)
 
   @Receive
-  fun observeMessages(): ReceiveChannel<Message>
+  fun observeMessages(): ReceiveChannel<MessageUpdate>
 
   @Receive
   fun observeMessageStatus()
