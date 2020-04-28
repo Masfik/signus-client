@@ -1,6 +1,7 @@
 package controllers
 
 import javafx.scene.control.TextField
+import kotlinx.coroutines.flow.collect
 import models.AuthUserModel
 import models.Chat
 import models.Message
@@ -8,6 +9,7 @@ import tornadofx.*
 import views.components.chattab.MessageList
 
 class ChatTabController : Controller() {
+  private val chatService: ChatServiceController by inject()
   private val authUser: AuthUserModel by inject()
 
   companion object {
@@ -24,5 +26,10 @@ class ChatTabController : Controller() {
 
     textField.text = ""
     scrollToBottom(authUser)
+  }
+
+  suspend fun observeIncomingMessage() = chatService.observeIncomingMessage().collect { update ->
+    authUser.chats.value.find { it.id == update.chatId }
+      ?.messageList?.add(update.message)
   }
 }

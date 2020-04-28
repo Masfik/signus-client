@@ -1,10 +1,14 @@
 package controllers
 
+import com.tinder.scarlet.websocket.WebSocketEvent.*
 import controllers.ChatTabController.Companion.scrollToBottom
+import kotlinx.coroutines.flow.collect
 import models.AuthUser
 import models.AuthUserModel
 import models.Chat
 import models.User
+import services.chat.updates.UserUpdateType.AUTH_USER
+import services.chat.updates.UserUpdateType.USER
 import tornadofx.*
 import views.components.chattab.NoChatSelected
 import views.components.chattab.SendMessageBar
@@ -13,6 +17,8 @@ import views.screens.ChatTab
 class MainController : Controller() {
   private val authUser: AuthUserModel by inject()
   private var isChatOpen = false
+  // Chat service
+  private val chatService: ChatServiceController by inject()
 
   // TODO: Temporary placeholder data
   init {
@@ -32,10 +38,7 @@ class MainController : Controller() {
   fun listenActiveChat() {
     authUser.activeChat.onChange { chat ->
       if (chat == null) {
-        find<ChatTab>().replaceWith(
-          NoChatSelected::class,
-          ViewTransition.Slide(0.2.seconds, ViewTransition.Direction.RIGHT)
-        )
+        find<ChatTab>().replaceWith(NoChatSelected::class)
 
         isChatOpen = false
       } else if (!isChatOpen) {
@@ -50,6 +53,24 @@ class MainController : Controller() {
 
       // The SendMessageBar will always request focus when the active chat changes
       runLater { find<SendMessageBar>().message.requestFocus() }
+    }
+  }
+
+  suspend fun observeServerConnection() = chatService.observeWebSocketEvent().collect {
+    when (it) {
+      is OnConnectionOpened -> println("Connected successfully to Signus server.")
+      is OnConnectionFailed -> println("Connection error.")
+      is OnConnectionClosed -> println("Closed connection successfully.")
+    }
+  }
+
+  suspend fun observeUser() = chatService.observeUser().collect { update ->
+    val user = update.user
+
+    when (update.type) {
+      AUTH_USER -> authUser.item?.update(user)
+      USER -> authUser.chats.value.find { it.recipient.id == user.id }
+        ?.recipient?.update(user)
     }
   }
 }

@@ -1,55 +1,56 @@
 package controllers
 
 import com.tinder.scarlet.Scarlet
-import com.tinder.scarlet.WebSocket
-import com.tinder.scarlet.websocket.okhttp.newWebSocketFactory
+import com.tinder.scarlet.messageadapter.moshi.MoshiMessageAdapter
+import com.tinder.scarlet.retry.ExponentialBackoffStrategy
+import com.tinder.scarlet.websocket.ShutdownReason
+import com.tinder.scarlet.websocket.WebSocketEvent
+import com.tinder.scarlet.websocket.okhttp.OkHttpWebSocket
 import com.tinder.streamadapter.coroutines.CoroutinesStreamAdapterFactory
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.receiveAsFlow
-import models.AuthUserModel
+import kotlinx.coroutines.flow.Flow
+import models.Chat
 import models.ServerSettingsModel
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import services.SignusAppLifecycle
 import services.chat.ChatService
+import services.chat.updates.MessageUpdate
+import services.chat.updates.UserUpdate
 import tornadofx.Controller
 
-class ChatServiceController : Controller() {
+class ChatServiceController : ChatService, Controller() {
+  // Server settings
   private val serverSettings: ServerSettingsModel by inject()
   private val prefix = if (serverSettings.useHttps.value) "wss://" else "ws://"
   private val endpoint = prefix + serverSettings.baseEndpoint.value
 
-  private val authUser: AuthUserModel by inject()
+  // Scarlet service
+  private val scarletInstance = Scarlet(
+    // Specifying which websocket adapter to use (OkHttp WebSocket)
+    OkHttpWebSocket(
+      OkHttpClient(),
+      OkHttpWebSocket.SimpleRequestFactory(
+        { Request.Builder().url(endpoint).build() },
+        { ShutdownReason.GRACEFUL }
+      )
+    ),
+    // Scarlet configuration
+    Scarlet.Configuration(
+      lifecycle = SignusAppLifecycle(),
+      backoffStrategy = ExponentialBackoffStrategy(1000, 60000),
+      messageAdapterFactories = listOf(MoshiMessageAdapter.Factory()),
+      streamAdapterFactories = listOf(CoroutinesStreamAdapterFactory())
+    )
+  )
+  private val service = scarletInstance.create<ChatService>()
 
-  private val scarletInstance = Scarlet.Builder()
-    .webSocketFactory(OkHttpClient().newWebSocketFactory(endpoint))
-    // TODO: add a message adapter factory
-    .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
-    .build()
+  override fun observeWebSocketEvent(): Flow<WebSocketEvent>  = service.observeWebSocketEvent()
 
-  val service = scarletInstance.create<ChatService>()
+  override fun observeIncomingChat(): Flow<Chat>              = service.observeIncomingChat()
 
-  @ExperimentalCoroutinesApi
-  suspend fun start() {
-    service.observeWebSocketEvent().receiveAsFlow()
-      .filter { it is WebSocket.Event.OnConnectionOpened<*> }
-      .collect {
-        println("Connected successfully.")
-      }
+  override fun sendMessage(messageUpdate: MessageUpdate)      = service.sendMessage(messageUpdate)
 
-    service.observeChats().receiveAsFlow()
-      .collect { authUser.chats.value.add(it) }
+  override fun observeIncomingMessage(): Flow<MessageUpdate>  = service.observeIncomingMessage()
 
-    service.observeUsers().receiveAsFlow()
-      .collect { user ->
-        authUser.chats.value.find { it.recipient.id == user.id }
-          ?.recipient?.update(user)
-      }
-
-    service.observeMessages().receiveAsFlow()
-      .collect { update ->
-        authUser.chats.value.find { it.id == update.chatId }
-          ?.messageList?.add(update.message)
-      }
-  }
+  override fun observeUser(): Flow<UserUpdate>                = service.observeUser()
 }
