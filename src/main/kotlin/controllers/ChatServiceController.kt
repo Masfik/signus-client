@@ -1,5 +1,6 @@
 package controllers
 
+import com.squareup.moshi.Moshi
 import com.tinder.scarlet.Scarlet
 import com.tinder.scarlet.messageadapter.moshi.MoshiMessageAdapter
 import com.tinder.scarlet.retry.ExponentialBackoffStrategy
@@ -8,8 +9,12 @@ import com.tinder.scarlet.websocket.WebSocketEvent
 import com.tinder.scarlet.websocket.okhttp.OkHttpWebSocket
 import com.tinder.streamadapter.coroutines.CoroutinesStreamAdapterFactory
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import models.Chat
 import models.ServerSettingsModel
+import models.adapters.ChatAdapter
+import models.adapters.MessageAdapter
+import models.adapters.UserAdapter
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import services.SignusAppLifecycle
@@ -24,6 +29,12 @@ class ChatServiceController : ChatService, Controller() {
   private val prefix = if (serverSettings.useHttps.value) "wss://" else "ws://"
   private val endpoint = prefix + serverSettings.baseEndpoint.value
 
+  private val moshi = Moshi.Builder()
+    .add(UserAdapter())
+    .add(ChatAdapter())
+    .add(MessageAdapter())
+    .build()
+
   // Scarlet service
   private val scarletInstance = Scarlet(
     // Specifying which websocket adapter to use (OkHttp WebSocket)
@@ -36,10 +47,10 @@ class ChatServiceController : ChatService, Controller() {
     ),
     // Scarlet configuration
     Scarlet.Configuration(
-      lifecycle = SignusAppLifecycle(),
-      backoffStrategy = ExponentialBackoffStrategy(1000, 60000),
-      messageAdapterFactories = listOf(MoshiMessageAdapter.Factory()),
-      streamAdapterFactories = listOf(CoroutinesStreamAdapterFactory())
+      lifecycle               = SignusAppLifecycle(),
+      backoffStrategy         = ExponentialBackoffStrategy(1000, 60000),
+      streamAdapterFactories  = listOf(CoroutinesStreamAdapterFactory()),
+      messageAdapterFactories = listOf(MoshiMessageAdapter.Factory(moshi))
     )
   )
   private val service = scarletInstance.create<ChatService>()

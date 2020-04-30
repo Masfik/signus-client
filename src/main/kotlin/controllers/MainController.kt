@@ -17,6 +17,7 @@ import views.screens.ChatTab
 class MainController : Controller() {
   private val authUser: AuthUserModel by inject()
   private var isChatOpen = false
+
   // Chat service
   private val chatService: ChatServiceController by inject()
 
@@ -24,11 +25,11 @@ class MainController : Controller() {
   init {
     val authUser = AuthUser("Masfik", "Masfik", "email@email.com", 0)
     val tom = User("Tom", "Caedan", "tom", 1)
-    val tomChat = Chat(242, tom)
+    val tomChat = Chat(tom)
 
     authUser.chats.addAll(
       tomChat,
-      Chat(2, User("Masfik", "Username", "email", 2))
+      Chat(User("Masfik", "Username", "email", 2))
     )
 
     this.authUser.item = authUser
@@ -37,19 +38,21 @@ class MainController : Controller() {
   // TODO: Might switch to EventBuses in the future to reduce coupling
   fun listenActiveChat() {
     authUser.activeChat.onChange { chat ->
-      if (chat == null) {
-        find<ChatTab>().replaceWith(NoChatSelected::class)
-
-        isChatOpen = false
-      } else if (!isChatOpen) {
-        find<NoChatSelected>().replaceWith(
-          ChatTab::class,
-          ViewTransition.Slide(0.2.seconds, ViewTransition.Direction.LEFT)
-        )
-
-        isChatOpen = true
-        scrollToBottom(authUser)
-      } else scrollToBottom(authUser)
+      when {
+        chat == null -> {
+          find<ChatTab>().replaceWith(NoChatSelected::class)
+          isChatOpen = false
+        }
+        isChatOpen.not() -> {
+          find<NoChatSelected>().replaceWith(
+            ChatTab::class,
+            ViewTransition.Slide(0.2.seconds, ViewTransition.Direction.LEFT)
+          )
+          isChatOpen = true
+          scrollToBottom(authUser)
+        }
+        else -> scrollToBottom(authUser)
+      }
 
       // The SendMessageBar will always request focus when the active chat changes
       runLater { find<SendMessageBar>().message.requestFocus() }

@@ -37,15 +37,6 @@ open class User(
   // Status (ONLINE, OFFLINE, BUSY)
   val statusProperty = SimpleObjectProperty(UserStatus.OFFLINE)
   var status: UserStatus by statusProperty
-
-  override fun updateModel(json: JsonObject) {
-    with(json) {
-      firstName = string("firstName")
-      lastName = string("lastName")
-      username = string("username")
-      email = string("email")
-    }
-  }
 }
 
 class UserModel : ItemViewModel<User>() {

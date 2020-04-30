@@ -27,7 +27,7 @@ class AuthUser(
   override fun updateModel(json: JsonObject) {
     super.updateModel(json)
     with(json) {
-      chats.setAll(getJsonArray("chats").toModel())
+      /*chats.setAll(getJsonArray("chats").toModel())*/
     }
   }
 }

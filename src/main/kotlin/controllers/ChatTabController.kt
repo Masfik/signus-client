@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.collect
 import models.AuthUserModel
 import models.Chat
 import models.Message
+import services.chat.updates.MessageUpdate
 import tornadofx.*
 import views.components.chattab.MessageList
 
@@ -21,8 +22,14 @@ class ChatTabController : Controller() {
   fun submit(textField: TextField) {
     if (textField.text.isEmpty()) return
 
+    val msg = Message(textField.text, authUser.item)
     val messages = authUser.activeChat.select(Chat::messagesProperty).value
-    messages.add(Message(0, textField.text, authUser.item))
+    messages.add(msg)
+
+    chatService.sendMessage(MessageUpdate(
+      authUser.activeChat.value.id!!,
+      msg
+    ))
 
     textField.text = ""
     scrollToBottom(authUser)
