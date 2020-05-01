@@ -23,20 +23,26 @@ class ChatTabController : Controller() {
     if (textField.text.isEmpty()) return
 
     val msg = Message(textField.text, authUser.item)
-    val messages = authUser.activeChat.select(Chat::messagesProperty).value
-    messages.add(msg)
+    val messageList = authUser.activeChat.select(Chat::messagesProperty).value
+    messageList.add(msg)
 
-    chatService.sendMessage(MessageUpdate(
-      authUser.activeChat.value.id!!,
-      msg
-    ))
+    chatService.sendMessage(
+      MessageUpdate(
+        authUser.activeChat.value.id ?: -1,
+        msg.data as String,
+        msg.dateTime
+      )
+    )
 
     textField.text = ""
     scrollToBottom(authUser)
   }
 
   suspend fun observeIncomingMessage() = chatService.observeIncomingMessage().collect { update ->
-    authUser.chats.value.find { it.id == update.chatId }
-      ?.messageList?.add(update.message)
+    val chat = authUser.chats.value.find { it.id == update.chatId }
+
+    chat?.messageList?.add(with(update) {
+      Message(data, chat.recipient, messageId, dateTime)
+    })
   }
 }

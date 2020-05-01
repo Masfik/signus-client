@@ -20,6 +20,7 @@ import okhttp3.Request
 import services.SignusAppLifecycle
 import services.chat.ChatService
 import services.chat.updates.MessageUpdate
+import services.chat.updates.MessageUpdateAdapter
 import services.chat.updates.UserUpdate
 import tornadofx.Controller
 
@@ -29,10 +30,12 @@ class ChatServiceController : ChatService, Controller() {
   private val prefix = if (serverSettings.useHttps.value) "wss://" else "ws://"
   private val endpoint = prefix + serverSettings.baseEndpoint.value
 
+  // Moshi (JSON encoding<->decoding)
   private val moshi = Moshi.Builder()
     .add(UserAdapter())
     .add(ChatAdapter())
     .add(MessageAdapter())
+    .add(MessageUpdateAdapter())
     .build()
 
   // Scarlet service
