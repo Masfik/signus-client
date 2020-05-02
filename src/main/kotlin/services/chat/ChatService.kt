@@ -6,6 +6,7 @@ import com.tinder.scarlet.ws.Send
 import kotlinx.coroutines.flow.Flow
 import models.Chat
 import services.chat.updates.MessageUpdate
+import services.chat.updates.UserStatusUpdate
 import services.chat.updates.UserUpdate
 
 interface ChatService {
@@ -61,4 +62,13 @@ interface ChatService {
    */
   @Receive
   fun observeUser(): Flow<UserUpdate>
+
+  /**
+   * Observe user status updates.
+   * The update collected will contain a userId field that that indicates which user the new status will apply to.
+   *
+   * Example: { "userId": "5eab669ca82e9f0790a5faca", "status": "ONLINE" }
+   */
+  @Receive
+  fun observeUserStatus(): Flow<UserStatusUpdate>
 }

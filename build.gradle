@@ -11,7 +11,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'maven'
 
 group 'us.groupwork.mta.signus'
-version '0.1.1'
+version '0.1.2'
 
 sourceCompatibility = 1.8
 
@@ -50,8 +50,6 @@ dependencies {
     implementation 'com.tinder.scarlet:protocol-websocket-okhttp:0.2.5-SNAPSHOT'
     implementation 'com.tinder.scarlet:stream-adapter-coroutines:0.2.5-SNAPSHOT'
     implementation 'com.tinder.scarlet:message-adapter-moshi:0.2.5-SNAPSHOT'
-    // Dependencies for Scarlet (manually required because Scarlet has been fetched from another repo)
-    implementation "io.reactivex.rxjava3:rxjava:3.0.2"
 }
 
 compileKotlin {

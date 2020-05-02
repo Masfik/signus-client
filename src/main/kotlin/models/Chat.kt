@@ -6,7 +6,7 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.*
 
-class Chat(recipient: User, var id: Int? = null, messageList: List<Message> = ArrayList()) {
+class Chat(recipient: User, var id: String? = null, messageList: List<Message> = ArrayList()) {
   // Recipient
   val recipientProperty = SimpleObjectProperty(recipient)
   val recipient: User by recipientProperty

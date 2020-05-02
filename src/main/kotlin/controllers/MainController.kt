@@ -23,13 +23,13 @@ class MainController : Controller() {
 
   // TODO: Temporary placeholder data
   init {
-    val authUser = AuthUser("Masfik", "Masfik", "email@email.com", 0)
-    val tom = User("Tom", "Caedan", "tom", 1)
-    val tomChat = Chat(tom)
+    val authUser = AuthUser("Masfik", "Masfik", "email@email.com", "0")
+    val tom = User("Tom", "Caedan", "tom", "1")
+    val tomChat = Chat(tom, "200")
 
     authUser.chats.addAll(
       tomChat,
-      Chat(User("Masfik", "Username", "email", 2))
+      Chat(User("Masfik", "Username", "email", "4"), "4")
     )
 
     this.authUser.item = authUser
@@ -61,9 +61,11 @@ class MainController : Controller() {
 
   suspend fun observeServerConnection() = chatService.observeWebSocketEvent().collect {
     when (it) {
-      is OnConnectionOpened -> println("Connected successfully to Signus server.")
-      is OnConnectionFailed -> println("Connection error.")
-      is OnConnectionClosed -> println("Closed connection successfully.")
+      is OnConnectionOpened   -> println("Connected successfully to Signus server.")
+      is OnConnectionClosed   -> println("Connection closed.")
+      is OnConnectionFailed   -> println("Connection failed! Retrying...")
+      is OnMessageReceived    -> println("New message received.")
+      is OnConnectionClosing  -> println("Connection closing...")
     }
   }
 

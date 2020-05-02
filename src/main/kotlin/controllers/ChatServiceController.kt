@@ -9,7 +9,6 @@ import com.tinder.scarlet.websocket.WebSocketEvent
 import com.tinder.scarlet.websocket.okhttp.OkHttpWebSocket
 import com.tinder.streamadapter.coroutines.CoroutinesStreamAdapterFactory
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import models.Chat
 import models.ServerSettingsModel
 import models.adapters.ChatAdapter
@@ -21,6 +20,7 @@ import services.SignusAppLifecycle
 import services.chat.ChatService
 import services.chat.updates.MessageUpdate
 import services.chat.updates.MessageUpdateAdapter
+import services.chat.updates.UserStatusUpdate
 import services.chat.updates.UserUpdate
 import tornadofx.Controller
 
@@ -67,4 +67,6 @@ class ChatServiceController : ChatService, Controller() {
   override fun observeIncomingMessage(): Flow<MessageUpdate>  = service.observeIncomingMessage()
 
   override fun observeUser(): Flow<UserUpdate>                = service.observeUser()
+
+  override fun observeUserStatus(): Flow<UserStatusUpdate>    = service.observeUserStatus()
 }

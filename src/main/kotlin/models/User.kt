@@ -9,7 +9,7 @@ import tornadofx.*
 import javax.json.JsonObject
 
 open class User(
-  firstName: String, username: String, email: String, var id: Int? = null, lastName: String? = null
+  firstName: String, username: String, email: String, var id: String? = null, lastName: String? = null
 ) : JsonModel {
   // First name
   val firstNameProperty = SimpleStringProperty(firstName)
@@ -40,7 +40,7 @@ open class User(
 }
 
 class UserModel : ItemViewModel<User>() {
-  val id: ReadOnlyProperty<Int> = bind(User::id)
+  val id: ReadOnlyProperty<String> = bind(User::id)
   val firstName: SimpleStringProperty = bind(User::firstNameProperty)
   val lastName: SimpleStringProperty = bind(User::lastNameProperty)
   val fullName: Property<StringBinding> = bind(User::fullNameProperty)
