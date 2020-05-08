@@ -17,10 +17,6 @@ data class UserJson(
 )
 
 class UserAdapter {
-//----------------------------------------------------------------------------------------------------------------------
-//  User from/to JSON
-//----------------------------------------------------------------------------------------------------------------------
-
   @FromJson
   fun userFromJson(userJson: UserJson): User = with(userJson) {
     User(firstName, username, email, id, lastName)
@@ -30,11 +26,9 @@ class UserAdapter {
   fun userToJson(user: User) = with(user) {
     UserJson(id, firstName!!, lastName!!, username!!, email!!)
   }
+}
 
-//----------------------------------------------------------------------------------------------------------------------
-//  AuthUser from/to JSON
-//----------------------------------------------------------------------------------------------------------------------
-
+class AuthUserAdapter {
   @FromJson
   fun authUserFromJson(userJson: UserJson): AuthUser = with(userJson) {
     AuthUser(firstName, username, email, id, lastName, token)

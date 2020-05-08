@@ -20,7 +20,7 @@ class LoginController : Controller() {
     // Reset error property and API
     runLater { error = "" }
     try {
-      val response = find<AuthServiceController>()
+      val response = find<AuthApiController>()
         .login(LoginDetails(username, password))
 
       runLater {

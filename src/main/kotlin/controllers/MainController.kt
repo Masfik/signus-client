@@ -3,7 +3,7 @@ package controllers
 import com.tinder.scarlet.websocket.WebSocketEvent.*
 import controllers.ChatTabController.Companion.scrollToBottom
 import kotlinx.coroutines.flow.collect
-import models.AuthUserModel
+import models.*
 import services.chat.updates.UserUpdateType.AUTH_USER
 import services.chat.updates.UserUpdateType.USER
 import tornadofx.*
@@ -17,6 +17,28 @@ class MainController : Controller() {
 
   // Chat service
   private val chatService: ChatServiceController by inject()
+
+  init {
+    val sampleUser = User(
+      id        = authUser.id.value,
+      firstName = "Sample",
+      lastName  = "Chat",
+      username  = "SampleChat",
+      email     = "sample@chat.com"
+    )
+
+    authUser.chats.add(
+      Chat(
+        sampleUser,
+        sampleUser.id,
+        listOf(
+          Message("You won't receive any messages here.", sampleUser),
+          Message("Feel free to type as much as you want.", sampleUser),
+          Message("This is a sample chat.", sampleUser)
+        )
+      )
+    )
+  }
 
   // TODO: Might switch to EventBuses in the future to reduce coupling
   fun listenActiveChat() {

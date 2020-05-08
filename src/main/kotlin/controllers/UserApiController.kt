@@ -1,23 +1,24 @@
 package controllers
 
 import com.squareup.moshi.Moshi
+import models.AuthUser
 import models.ServerSettingsModel
+import models.User
+import models.adapters.AuthUserAdapter
 import models.adapters.UserAdapter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import services.api.AuthAPI
-import services.api.adapters.LoginDetails
-import services.api.adapters.LoginResult
-import services.api.adapters.RegisterDetails
+import services.api.UserAPI
 import tornadofx.Controller
 
-class AuthServiceController : AuthAPI, Controller() {
+class UserApiController : UserAPI, Controller() {
   private val serverSettings: ServerSettingsModel by inject()
   private val prefix = if (serverSettings.useHttps.value) "https://" else "http://"
 
   // Moshi (JSON encoding<->decoding)
   private val moshi = Moshi.Builder()
     .add(UserAdapter())
+    .add(AuthUserAdapter())
     .build()
 
   // Rest API: Retrofit
@@ -25,9 +26,13 @@ class AuthServiceController : AuthAPI, Controller() {
     .baseUrl(prefix + serverSettings.baseEndpoint.valueSafe)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .build()
-  private val api: AuthAPI = retrofit.create(AuthAPI::class.java)
+  private val api = retrofit.create(UserAPI::class.java)
 
-  override suspend fun login(loginData: LoginDetails): LoginResult = api.login(loginData)
+  override suspend fun getAuthUser(token: String): AuthUser = api.getAuthUser(token)
 
-  override suspend fun register(registerDetails: RegisterDetails): LoginResult = api.register(registerDetails)
+  override suspend fun getUser(token: String, username: String): User? = api.getUser(token, username)
+
+  override suspend fun chatList(token: String): List<User>? {
+    TODO("Not yet implemented")
+  }
 }
