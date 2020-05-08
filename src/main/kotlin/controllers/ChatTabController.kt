@@ -28,7 +28,7 @@ class ChatTabController : Controller() {
 
     chatService.sendMessage(
       MessageUpdate(
-        authUser.activeChat.value.id ?: -1,
+        authUser.activeChat.value.id ?: "-1",
         msg.data as String,
         msg.dateTime
       )

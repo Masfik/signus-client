@@ -1,3 +1,4 @@
+import kotlinx.coroutines.*
 import services.SignusAppLifecycle
 import tornadofx.App
 import tornadofx.launch
@@ -11,4 +12,4 @@ class Signus : App(LoginScreen::class, MainStylesheet::class) {
   }
 }
 
-fun main() = launch<Signus>()
+fun main() = runBlocking { launch<Signus>() }

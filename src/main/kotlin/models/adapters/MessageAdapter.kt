@@ -9,18 +9,20 @@ import java.time.LocalDateTime
 
 @JsonClass(generateAdapter = true)
 data class MessageJson(
-  val id: Int?,
+  val id: String?,
   val data: String, // TODO: might change later
   val sender: User,
   val dateTime: String
 )
 
 class MessageAdapter {
-  @FromJson fun fromJson(messageJson: MessageJson): Message = with(messageJson) {
+  @FromJson
+  fun fromJson(messageJson: MessageJson): Message = with(messageJson) {
     Message(data, sender, id, LocalDateTime.parse(dateTime))
   }
 
-  @ToJson fun toJson(message: Message): MessageJson = with(message) {
+  @ToJson
+  fun toJson(message: Message): MessageJson = with(message) {
     MessageJson(id, data as String, sender, dateTime.toString())
   }
 }

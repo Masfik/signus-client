@@ -10,12 +10,14 @@ import models.User
 @JsonClass(generateAdapter = true)
 data class ChatJson(
   val recipient: User,
-  val id: Int?,
+  val id: String?,
   val messages: List<Message>
 )
 
 class ChatAdapter {
-  @FromJson fun fromJson(chatJson: ChatJson): Chat = Chat(chatJson.recipient, chatJson.id, chatJson.messages)
+  @FromJson
+  fun fromJson(chatJson: ChatJson): Chat = Chat(chatJson.recipient, chatJson.id, chatJson.messages)
 
-  @ToJson fun toJson(chat: Chat): ChatJson = ChatJson(chat.recipient, chat.id, chat.messageList)
+  @ToJson
+  fun toJson(chat: Chat): ChatJson = ChatJson(chat.recipient, chat.id, chat.messageList)
 }

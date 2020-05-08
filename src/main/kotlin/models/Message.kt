@@ -46,7 +46,7 @@ class Message(data: Any, sender: User, var id: String? = null, dateTime: LocalDa
 }
 
 class MessageModel : ItemViewModel<Message>() {
-  val id: Property<Int> = bind(Message::id)
+  val id: Property<String> = bind(Message::id)
   val data: SimpleObjectProperty<Any> = bind(Message::dataProperty)
   val sender: SimpleObjectProperty<User> = bind(Message::senderProperty)
   val status: SimpleObjectProperty<MessageStatus> = bind(Message::statusProperty)

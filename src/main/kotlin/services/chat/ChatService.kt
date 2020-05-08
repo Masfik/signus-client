@@ -36,7 +36,7 @@ interface ChatService {
 
   /**
    * Send a chat message to the currently connected WebSocket.
-   * The [MessageUpdate] will need to point to [Chat] ID of which the message is related to.
+   * The [MessageUpdate] will need to point to the [Chat] ID of which the message is related to.
    */
   @Send
   fun sendMessage(messageUpdate: MessageUpdate)
@@ -65,7 +65,7 @@ interface ChatService {
 
   /**
    * Observe user status updates.
-   * The update collected will contain a userId field that that indicates which user the new status will apply to.
+   * The update collected will contain a [userId] field that that indicates which [User] the new status will apply to.
    *
    * Example: { "userId": "5eab669ca82e9f0790a5faca", "status": "ONLINE" }
    */

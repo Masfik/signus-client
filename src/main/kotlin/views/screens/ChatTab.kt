@@ -1,6 +1,7 @@
 package views.screens
 
 import controllers.ChatTabController
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tornadofx.View
@@ -15,7 +16,7 @@ class ChatTab : View() {
   private val controller: ChatTabController by inject()
 
   init {
-    GlobalScope.launch { controller.observeIncomingMessage() }
+    GlobalScope.launch(Dispatchers.IO) { controller.observeIncomingMessage() }
   }
 
   override val root = borderpane {

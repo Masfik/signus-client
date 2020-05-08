@@ -28,7 +28,7 @@ class Chat(recipient: User, var id: String? = null, messageList: List<Message> =
 }
 
 class ChatModel : ItemViewModel<Chat>() {
-  val id: Property<Int> = bind(Chat::id)
+  val id: Property<String> = bind(Chat::id)
   val recipient: SimpleObjectProperty<User> = bind(Chat::recipientProperty)
   val messageList: SimpleListProperty<Message> = bind(Chat::messagesProperty)
   val preview: Property<StringBinding> = bind(Chat::previewProperty)

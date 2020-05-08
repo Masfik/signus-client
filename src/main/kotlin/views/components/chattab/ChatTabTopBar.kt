@@ -39,7 +39,7 @@ class ChatTabTopBar : View() {
         setId(closeButton)
 
         button("Close").action {
-          // Find ChatList and clear selection
+          // Find ChatList and clear selection - TODO: replace with EventBuses in the future
           find<ChatList>().root.selectionModel.clearSelection()
         }
       }

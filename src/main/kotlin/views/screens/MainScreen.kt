@@ -1,6 +1,7 @@
 package views.screens
 
 import controllers.MainController
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tornadofx.*
@@ -11,8 +12,8 @@ class MainScreen : View("Signus") {
 
   init {
     controller.listenActiveChat()
-    GlobalScope.launch { controller.observeServerConnection() }
-    GlobalScope.launch { controller.observeUser() }
+    GlobalScope.launch(Dispatchers.IO) { controller.observeServerConnection() }
+    GlobalScope.launch(Dispatchers.IO) { controller.observeUser() }
   }
 
   override val root = splitpane {

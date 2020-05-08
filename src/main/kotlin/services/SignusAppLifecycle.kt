@@ -27,12 +27,12 @@ class SignusAppLifecycle(
   }
 
   init {
-    // Initial Started state
+    // Set initial Started state
     lifecycleRegistry.onNext(LifecycleState.Started)
 
     statusProperty.onChange {
       when (it) {
-        AppState.OPEN -> lifecycleRegistry.onNext(LifecycleState.Started)
+        AppState.OPEN   -> lifecycleRegistry.onNext(LifecycleState.Started)
         AppState.CLOSED -> lifecycleRegistry.onNext(LifecycleState.Stopped)
       }
     }

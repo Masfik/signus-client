@@ -9,6 +9,7 @@ import com.tinder.scarlet.websocket.WebSocketEvent
 import com.tinder.scarlet.websocket.okhttp.OkHttpWebSocket
 import com.tinder.streamadapter.coroutines.CoroutinesStreamAdapterFactory
 import kotlinx.coroutines.flow.Flow
+import models.AuthUserModel
 import models.Chat
 import models.ServerSettingsModel
 import models.adapters.ChatAdapter
@@ -29,6 +30,8 @@ class ChatServiceController : ChatService, Controller() {
   private val serverSettings: ServerSettingsModel by inject()
   private val prefix = if (serverSettings.useHttps.value) "wss://" else "ws://"
   private val endpoint = prefix + serverSettings.baseEndpoint.value
+  // AuthUser token
+  private val token = find<AuthUserModel>().token.valueSafe
 
   // Moshi (JSON encoding<->decoding)
   private val moshi = Moshi.Builder()
@@ -44,7 +47,7 @@ class ChatServiceController : ChatService, Controller() {
     OkHttpWebSocket(
       OkHttpClient(),
       OkHttpWebSocket.SimpleRequestFactory(
-        { Request.Builder().url(endpoint).build() },
+        { Request.Builder().url(endpoint).header("Authorization", token).build() },
         { ShutdownReason.GRACEFUL }
       )
     ),

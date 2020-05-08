@@ -2,6 +2,9 @@ package views.components.loginscreen
 
 import controllers.LoginController
 import javafx.beans.property.SimpleStringProperty
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import tornadofx.*
 import views.stylesheets.LoginStylesheet.Companion.error
 
@@ -24,7 +27,7 @@ class LoginForm : View() {
         isDefaultButton = true
         enableWhen(model.valid)
         action {
-          runAsyncWithProgress {
+          GlobalScope.launch(Dispatchers.IO) {
             controller.login(username.value, password.value)
           }
         }

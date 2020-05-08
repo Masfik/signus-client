@@ -9,14 +9,14 @@ import retrofit2.http.Path
 
 interface UserAPI {
   @GET("user")
-  fun getUser(@Header("Authorization") token: String): Call<AuthUser>
+  suspend fun getAuthUser(@Header("Authorization") token: String): AuthUser
 
-  @GET("user/search/{username}")
-  fun search(
+  @GET("user/{username}")
+  suspend fun getUser(
     @Header("Authorization") token: String,
     @Path("username") username: String
-  ): Call<User?>
+  ): User?
 
-  @GET("user/chats")
-  fun chatList(@Header("Authorization") token: String): Call<List<User>?>
+  @GET("user/chats") // TODO: this implementation is WIP
+  suspend fun chatList(@Header("Authorization") token: String): List<User>?
 }
