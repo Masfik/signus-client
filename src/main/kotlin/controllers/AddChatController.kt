@@ -24,7 +24,7 @@ class AddChatController : Controller() {
 
     try {
       val user = find<UserApiController>()
-        .getUser(authUser.token.valueSafe, textField.text)
+        .userByUsername(authUser.token.valueSafe, textField.text)
 
       if (user !== null) when {
         authUser.id.value == user.id -> runLater {

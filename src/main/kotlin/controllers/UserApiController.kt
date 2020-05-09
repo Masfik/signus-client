@@ -28,11 +28,9 @@ class UserApiController : UserAPI, Controller() {
     .build()
   private val api = retrofit.create(UserAPI::class.java)
 
-  override suspend fun getAuthUser(token: String): AuthUser = api.getAuthUser(token)
+  override suspend fun authUser(token: String): AuthUser = api.authUser(token)
 
-  override suspend fun getUser(token: String, username: String): User? = api.getUser(token, username)
+  override suspend fun userByUsername(token: String, username: String): User? = api.userByUsername(token, username)
 
-  override suspend fun chatList(token: String): List<User>? {
-    TODO("Not yet implemented")
-  }
+  override suspend fun userById(token: String, id: String): User? = api.userById(token, id)
 }

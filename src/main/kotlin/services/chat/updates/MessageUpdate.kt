@@ -3,7 +3,7 @@ package services.chat.updates
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.ToJson
-import models.User
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -18,8 +18,10 @@ data class MessageUpdate(
 
 class MessageUpdateAdapter {
   @FromJson
-  fun dateTimeFromJson(dateTime: Long): LocalDateTime = LocalDateTime.parse(dateTime.toString())
+  fun dateTimeFromJson(dateTime: Long): LocalDateTime = Instant.ofEpochMilli(dateTime)
+    .atZone(ZoneOffset.UTC)
+    .toLocalDateTime()
 
   @ToJson
-  fun dateTimeToJson(dateTime: LocalDateTime): Long = dateTime.toEpochSecond(ZoneOffset.UTC)
+  fun dateTimeToJson(dateTime: LocalDateTime): Long = dateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
 }

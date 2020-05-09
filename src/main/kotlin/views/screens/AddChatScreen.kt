@@ -16,7 +16,7 @@ class AddChatScreen : View() {
   private var username: TextField by singleAssign()
 
   override val root = borderpane {
-    setPrefSize(300.0, 200.0)
+    setPrefSize(300.0, 100.0)
 
     top {
       stackpane {

@@ -1,5 +1,5 @@
 import kotlinx.coroutines.*
-import services.SignusAppLifecycle
+import services.chat.SignusAppLifecycle
 import tornadofx.App
 import tornadofx.launch
 import views.screens.LoginScreen

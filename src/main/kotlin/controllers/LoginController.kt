@@ -6,7 +6,9 @@ import services.api.adapters.LoginDetails
 import tornadofx.*
 import views.screens.LoginScreen
 import views.screens.MainScreen
+import java.lang.Exception
 import java.lang.IllegalArgumentException
+import java.net.ConnectException
 
 class LoginController : Controller() {
   // AuthUser Model
@@ -29,8 +31,12 @@ class LoginController : Controller() {
           find<LoginScreen>().replaceWith(MainScreen::class)
         } else error = response.message
       }
-    } catch (e: IllegalArgumentException) {
-      runLater { error = "Unreachable Endpoint" }
+    } catch (e: Exception) {
+      when (e) {
+        is IllegalArgumentException,
+        is ConnectException -> runLater { error = "Unreachable Endpoint" }
+        else -> runLater { error = e.message }
+      }
     }
   }
 }

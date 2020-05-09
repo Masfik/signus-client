@@ -19,20 +19,9 @@ interface ChatService {
   @Receive
   fun observeWebSocketEvent(): Flow<WebSocketEvent>
 
-  /* * * * * * * *\
-  * Chats-related *
-  \* * * * * * * */
-
-  /**
-   * Observe incoming chats.
-   * If a new [Chat] is detected, the flow will notify of any new addition.
-   */
-  @Receive
-  fun observeIncomingChat(): Flow<Chat>
-
-  /* * * * * * * * *\
-  * Message-related *
-  \* * * * * * * * */
+//----------------------------------------------------------------------------------------------------------------------
+// MESSAGE-RELATED
+//----------------------------------------------------------------------------------------------------------------------
 
   /**
    * Send a chat message to the currently connected WebSocket.
@@ -51,9 +40,9 @@ interface ChatService {
   /*@Receive TODO
   fun observeMessageStatus()*/
 
-  /* * * * * * * *\
-  * Users-related *
-  \* * * * * * * */
+//----------------------------------------------------------------------------------------------------------------------
+// USER-RELATED
+//----------------------------------------------------------------------------------------------------------------------
 
   /**
    * Observe user updates.

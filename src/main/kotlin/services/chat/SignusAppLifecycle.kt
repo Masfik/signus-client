@@ -1,4 +1,4 @@
-package services
+package services.chat
 
 import com.tinder.scarlet.Lifecycle
 import com.tinder.scarlet.LifecycleState

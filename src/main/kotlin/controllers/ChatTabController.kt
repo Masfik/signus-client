@@ -41,8 +41,10 @@ class ChatTabController : Controller() {
   suspend fun observeIncomingMessage() = chatService.observeIncomingMessage().collect { update ->
     val chat = authUser.chats.value.find { it.id == update.chatId }
 
-    chat?.messageList?.add(with(update) {
-      Message(data, chat.recipient, messageId, dateTime)
-    })
+    runLater {
+      chat?.messageList?.add(with(update) {
+        Message(data, chat.recipient, "", dateTime)
+      })
+    }
   }
 }
