@@ -16,7 +16,7 @@ data class UserJson(
   val username: String,
   val email: String,
   val token: String? = null,
-  @Status val status: UserStatus
+  @Status val status: UserStatus = UserStatus.ONLINE
 )
 
 //----------------------------------------------------------------------------------------------------------------------
