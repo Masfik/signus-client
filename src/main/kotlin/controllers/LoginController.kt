@@ -2,6 +2,7 @@ package controllers
 
 import javafx.beans.property.SimpleStringProperty
 import models.AuthUserModel
+import models.ServerSettingsModel
 import services.api.adapters.LoginDetails
 import tornadofx.*
 import views.screens.LoginScreen
@@ -13,16 +14,22 @@ import java.net.ConnectException
 class LoginController : Controller() {
   // AuthUser Model
   private val authUser: AuthUserModel by inject()
+  private val serverSettings: ServerSettingsModel by inject()
 
   // Status
   val errorProperty = SimpleStringProperty()
   private var error by errorProperty
 
+  init {
+    serverSettings.baseEndpoint.value = "localhost:3000"
+  }
+
   suspend fun login(username: String, password: String) {
-    // Reset error property and API
+    // Reset error property
     runLater { error = "" }
+
     try {
-      val response = find<AuthApiController>()
+      val response = AuthApiController()
         .login(LoginDetails(username, password))
 
       runLater {

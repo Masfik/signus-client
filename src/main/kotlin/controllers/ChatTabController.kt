@@ -7,6 +7,7 @@ import models.Chat
 import models.Message
 import services.chat.updates.MessageUpdate
 import tornadofx.*
+import views.components.chatlisttab.ChatList
 import views.components.chattab.MessageList
 
 class ChatTabController : Controller() {
@@ -36,15 +37,5 @@ class ChatTabController : Controller() {
 
     textField.text = ""
     scrollToBottom(authUser)
-  }
-
-  suspend fun observeIncomingMessage() = chatService.observeIncomingMessage().collect { update ->
-    val chat = authUser.chats.value.find { it.id == update.chatId }
-
-    runLater {
-      chat?.messageList?.add(with(update) {
-        Message(data, chat.recipient, "", dateTime)
-      })
-    }
   }
 }

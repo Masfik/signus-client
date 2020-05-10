@@ -13,12 +13,6 @@ import views.components.chattab.SendMessageBar
 import views.stylesheets.ChatTabStylesheet
 
 class ChatTab : View() {
-  private val controller: ChatTabController by inject()
-
-  init {
-    GlobalScope.launch(Dispatchers.IO) { controller.observeIncomingMessage() }
-  }
-
   override val root = borderpane {
     addStylesheet(ChatTabStylesheet::class)
 

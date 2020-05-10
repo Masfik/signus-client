@@ -7,6 +7,7 @@ import models.*
 import services.chat.updates.UserUpdateType.AUTH_USER
 import services.chat.updates.UserUpdateType.USER
 import tornadofx.*
+import views.components.chatlisttab.ChatList
 import views.components.chattab.NoChatSelected
 import views.components.chattab.SendMessageBar
 import views.screens.ChatTab
@@ -49,10 +50,7 @@ class MainController : Controller() {
           isChatOpen = false
         }
         isChatOpen.not() -> {
-          find<NoChatSelected>().replaceWith(
-            ChatTab::class,
-            ViewTransition.Slide(0.2.seconds, ViewTransition.Direction.LEFT)
-          )
+          find<NoChatSelected>().replaceWith(ChatTab::class)
           isChatOpen = true
           scrollToBottom(authUser)
         }

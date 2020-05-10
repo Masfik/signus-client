@@ -18,7 +18,7 @@ data class MessageJson(
 class MessageAdapter {
   @FromJson
   fun fromJson(messageJson: MessageJson): Message = with(messageJson) {
-    Message(data, sender, id, LocalDateTime.parse(dateTime))
+    Message(data, sender, LocalDateTime.parse(dateTime))
   }
 
   @ToJson

@@ -6,7 +6,7 @@ import tornadofx.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class Message(data: Any, sender: User, var id: String? = null, dateTime: LocalDateTime = LocalDateTime.now()) {
+class Message(data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.now(), var id: String? = null) {
   // Data (the content sent)
   val dataProperty = SimpleObjectProperty(data)
   var data: Any by dataProperty
