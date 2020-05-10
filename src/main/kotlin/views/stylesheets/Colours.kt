@@ -23,6 +23,8 @@ class SignusTheme {
 
     /* Generic colours */
     @JvmStatic var RED               = NordSwatch.AURORA0.color
+    @JvmStatic var GREEN             = NordSwatch.AURORA3.color
+
   }
 }
 

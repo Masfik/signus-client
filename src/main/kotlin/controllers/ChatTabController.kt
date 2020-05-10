@@ -1,18 +1,31 @@
 package controllers
 
+import javafx.scene.control.Label
 import javafx.scene.control.TextField
-import kotlinx.coroutines.flow.collect
+import javafx.scene.paint.Color
+import javafx.scene.shape.Circle
 import models.AuthUserModel
 import models.Chat
 import models.Message
+import models.UserStatus
+import models.UserStatus.*
 import services.chat.updates.MessageUpdate
 import tornadofx.*
-import views.components.chatlisttab.ChatList
+import views.components.chattab.ChatTabTopBar
+import views.components.chattab.ChatTabTopBar.Companion.statusCircle
+import views.components.chattab.ChatTabTopBar.Companion.statusText
 import views.components.chattab.MessageList
+import views.stylesheets.SignusTheme
 
 class ChatTabController : Controller() {
   private val chatService: ChatServiceController by inject()
   private val authUser: AuthUserModel by inject()
+
+  init {
+    authUser.activeChat.onChange { chat ->
+      chat?.recipient?.statusProperty?.onChange(this::changeStatus)
+    }
+  }
 
   companion object {
     fun scrollToBottom(authUser: AuthUserModel) = find<MessageList>().root.scrollTo(
@@ -37,5 +50,24 @@ class ChatTabController : Controller() {
 
     textField.text = ""
     scrollToBottom(authUser)
+  }
+
+  private fun changeStatus(status: UserStatus?) {
+    val topBar = find<ChatTabTopBar>().root
+
+    when (status) {
+      ONLINE -> {
+        topBar.select<Circle>(statusCircle).fill = SignusTheme.GREEN
+        topBar.select<Label>(statusText).text = status.name
+      }
+      OFFLINE -> {
+        topBar.select<Circle>(statusCircle).fill = Color.GRAY
+        topBar.select<Label>(statusText).text = status.name
+      }
+      BUSY -> {
+        topBar.select<Circle>(statusCircle).fill = SignusTheme.RED
+        topBar.select<Label>(statusText).text = status.name
+      }
+    }
   }
 }
