@@ -6,11 +6,15 @@ import javafx.beans.property.ReadOnlyProperty
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
-import javax.json.JsonObject
 
 open class User(
-  firstName: String, username: String, email: String, var id: String? = null, lastName: String? = null
-) : JsonModel {
+  firstName: String,
+  username: String,
+  email: String,
+  var id: String? = null,
+  lastName: String? = null,
+  status: UserStatus = UserStatus.OFFLINE
+) {
   // First name
   val firstNameProperty = SimpleStringProperty(firstName)
   var firstName: String? by firstNameProperty
@@ -35,8 +39,12 @@ open class User(
   var email: String? by emailProperty
 
   // Status (ONLINE, OFFLINE, BUSY)
-  val statusProperty = SimpleObjectProperty(UserStatus.OFFLINE)
+  val statusProperty = SimpleObjectProperty(status)
   var status: UserStatus by statusProperty
+
+  // Avatar
+  val avatarProperty = SimpleStringProperty("anon-user.png")
+  open var avatar: String by avatarProperty
 }
 
 class UserModel : ItemViewModel<User>() {
@@ -47,4 +55,5 @@ class UserModel : ItemViewModel<User>() {
   val username: SimpleStringProperty = bind(User::usernameProperty)
   val email: SimpleStringProperty = bind(User::emailProperty)
   val status: SimpleObjectProperty<UserStatus> = bind(User::statusProperty)
+  val avatar: SimpleStringProperty = bind(User::avatar)
 }

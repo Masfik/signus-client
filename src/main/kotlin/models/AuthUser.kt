@@ -6,7 +6,6 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.ItemViewModel
 import tornadofx.getValue
-import javax.json.JsonObject
 import tornadofx.setValue
 
 class AuthUser(
@@ -15,8 +14,9 @@ class AuthUser(
   email: String,
   id: String? = null,
   lastName: String? = "",
-  token: String? = null
-) : User(firstName, username, email, id, lastName) {
+  token: String? = null,
+  status: UserStatus = UserStatus.OFFLINE
+) : User(firstName, username, email, id, lastName, status) {
   // Chats
   val chatsProperty = SimpleListProperty<Chat>(FXCollections.observableArrayList(ArrayList()))
   val chats: ObservableList<Chat> by chatsProperty
@@ -26,13 +26,10 @@ class AuthUser(
   var activeChat: Chat by activeChatProperty
 
   val tokenProperty = SimpleStringProperty(token)
-  var token: String? by tokenProperty;
+  var token: String? by tokenProperty
 
-  override fun updateModel(json: JsonObject) {
-    super.updateModel(json)
-    with(json) {
-      /*chats.setAll(getJsonArray("chats").toModel())*/
-    }
+  init {
+    super.avatar = "user.png"
   }
 }
 
@@ -47,4 +44,5 @@ class AuthUserModel : ItemViewModel<AuthUser>() {
   val chats: SimpleListProperty<Chat> = bind(AuthUser::chatsProperty)
   val activeChat: SimpleObjectProperty<Chat> = bind(AuthUser::activeChatProperty)
   var token: SimpleStringProperty = bind(AuthUser::tokenProperty)
+  val avatar: SimpleStringProperty = bind(AuthUser::avatar)
 }

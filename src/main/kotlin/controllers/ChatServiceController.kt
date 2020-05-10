@@ -9,6 +9,8 @@ import com.tinder.scarlet.websocket.WebSocketEvent
 import com.tinder.scarlet.websocket.okhttp.OkHttpWebSocket
 import com.tinder.streamadapter.coroutines.CoroutinesStreamAdapterFactory
 import kotlinx.coroutines.flow.Flow
+import misc.DateAdapter
+import misc.UserStatusAdapter
 import models.AuthUserModel
 import models.ServerSettingsModel
 import models.adapters.ChatAdapter
@@ -19,7 +21,6 @@ import okhttp3.Request
 import services.chat.SignusAppLifecycle
 import services.chat.ChatService
 import services.chat.updates.MessageUpdate
-import services.chat.updates.MessageUpdateAdapter
 import services.chat.updates.UserStatusUpdate
 import services.chat.updates.UserUpdate
 import tornadofx.Controller
@@ -34,10 +35,11 @@ class ChatServiceController : ChatService, Controller() {
 
   // Moshi (JSON encoding<->decoding)
   private val moshi = Moshi.Builder()
+    .add(UserStatusAdapter())
     .add(UserAdapter())
     .add(ChatAdapter())
     .add(MessageAdapter())
-    .add(MessageUpdateAdapter())
+    .add(DateAdapter())
     .build()
 
   // Scarlet service

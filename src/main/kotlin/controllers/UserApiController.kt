@@ -1,6 +1,7 @@
 package controllers
 
 import com.squareup.moshi.Moshi
+import misc.UserStatusAdapter
 import models.AuthUser
 import models.ServerSettingsModel
 import models.User
@@ -18,6 +19,7 @@ class UserApiController : UserAPI, Controller() {
   // Moshi (JSON encoding<->decoding)
   private val moshi = Moshi.Builder()
     .add(UserAdapter())
+    .add(UserStatusAdapter())
     .add(AuthUserAdapter())
     .build()
 

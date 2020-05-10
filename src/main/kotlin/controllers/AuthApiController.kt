@@ -1,6 +1,7 @@
 package controllers
 
 import com.squareup.moshi.Moshi
+import misc.UserStatusAdapter
 import models.ServerSettingsModel
 import models.adapters.AuthUserAdapter
 import retrofit2.Retrofit
@@ -17,6 +18,7 @@ class AuthApiController : AuthAPI, Controller() {
 
   // Moshi (JSON encoding<->decoding)
   private val moshi = Moshi.Builder()
+    .add(UserStatusAdapter())
     .add(AuthUserAdapter())
     .build()
 

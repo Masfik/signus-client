@@ -29,5 +29,21 @@ class ChatListController : Controller() {
         )
       }
     }
+
+    // TODO: simple notification
+    /*runLater {
+      val avatar = ImageView("user.png")
+      avatar.fitHeight = 50.0
+      avatar.fitWidth = avatar.fitHeight
+
+      Notifications.create()
+        .graphic(avatar)
+        .title(chat?.recipient?.fullName ?: user?.fullName)
+        .text(update.data)
+        .owner(owner)
+        .darkStyle()
+        .position(Pos.BOTTOM_LEFT)
+        .show()
+    }*/
   }
 }

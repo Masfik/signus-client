@@ -3,8 +3,10 @@ package models.adapters
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.ToJson
+import misc.Status
 import models.AuthUser
 import models.User
+import models.UserStatus
 
 @JsonClass(generateAdapter = true)
 data class UserJson(
@@ -13,7 +15,8 @@ data class UserJson(
   val lastName: String,
   val username: String,
   val email: String,
-  val token: String? = null
+  val token: String? = null,
+  @Status val status: UserStatus
 )
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -23,12 +26,12 @@ data class UserJson(
 class UserAdapter {
   @FromJson
   fun userFromJson(userJson: UserJson): User = with(userJson) {
-    User(firstName, username, email, id, lastName)
+    User(firstName, username, email, id, lastName, userJson.status)
   }
 
   @ToJson
   fun userToJson(user: User) = with(user) {
-    UserJson(id, firstName!!, lastName!!, username!!, email!!)
+    UserJson(id, firstName!!, lastName!!, username!!, email!!, status = status)
   }
 }
 
@@ -39,11 +42,11 @@ class UserAdapter {
 class AuthUserAdapter {
   @FromJson
   fun authUserFromJson(userJson: UserJson): AuthUser = with(userJson) {
-    AuthUser(firstName, username, email, id, lastName, token)
+    AuthUser(firstName, username, email, id, lastName, token, userJson.status)
   }
 
   @ToJson
   fun authUserToJson(authUser: AuthUser) = with(authUser) {
-    UserJson(id, firstName!!, lastName!!, username!!, email!!, token!!)
+    UserJson(id, firstName!!, lastName!!, username!!, email!!, token!!, status = status)
   }
 }

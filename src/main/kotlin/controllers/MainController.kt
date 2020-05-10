@@ -76,9 +76,9 @@ class MainController : Controller() {
     val user = update.user
 
     when (update.type) {
-      AUTH_USER -> authUser.item?.update(user)
-      USER -> authUser.chats.value.find { it.recipient.id == user.id }
-        ?.recipient?.update(user)
+      AUTH_USER -> TODO() // authUser.item?.update(user)
+      USER -> TODO() /*authUser.chats.value.find { it.recipient.id == user.id }
+        ?.recipient?.update(user)*/
     }
   }
 }

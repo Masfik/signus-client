@@ -48,7 +48,6 @@ class MainStylesheet : Stylesheet() {
   }
 
   init {
-    /* UI COMPONENTS (Nodes) */
     "*" {
       textFill = SignusTheme.TEXT_ON_BG
     }
@@ -156,8 +155,29 @@ class MainStylesheet : Stylesheet() {
       backgroundColor += SignusTheme.BACKGROUND.darker()
     }
 
+    checkBox {
+      box {
+        backgroundColor += SignusTheme.INPUT
+        borderRadius += box(4.px)
+        borderColor += box(SignusTheme.PRIMARY_DARKER)
+      }
 
-    /* APP CLASSES */
+      and(selected) {
+        box {
+          backgroundColor += SignusTheme.SECONDARY
+          borderColor += box(Color.TRANSPARENT)
+        }
+
+        mark {
+          backgroundColor += SignusTheme.TEXT_ON_BG
+        }
+      }
+    }
+
+//----------------------------------------------------------------------------------------------------------------------
+// App custom classes
+//----------------------------------------------------------------------------------------------------------------------
+
     topBar {
       +barProperties
 
