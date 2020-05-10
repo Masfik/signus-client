@@ -6,13 +6,9 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.*
 
-class Chat(id: Int, partner: User, messageList: List<Message> = ArrayList()) : JsonModel {
-  // ID
-  val idProperty = SimpleIntegerProperty(id)
-  val id: Int by idProperty
-
+class Chat(recipient: User, var id: String? = null, messageList: List<Message> = ArrayList()) {
   // Recipient
-  val recipientProperty = SimpleObjectProperty(partner)
+  val recipientProperty = SimpleObjectProperty(recipient)
   val recipient: User by recipientProperty
 
   // Messages
@@ -24,7 +20,7 @@ class Chat(id: Int, partner: User, messageList: List<Message> = ArrayList()) : J
     if (this.value.isNotEmpty()) {
       val lastMessage = this.value.last()
 
-      if (lastMessage.sender.id == recipient.id) lastMessage.preview
+      if (lastMessage.sender.id == this@Chat.recipient.id) lastMessage.preview
       else "You ➜ ${lastMessage.preview}"
     } else "No messages"
   }
@@ -32,7 +28,7 @@ class Chat(id: Int, partner: User, messageList: List<Message> = ArrayList()) : J
 }
 
 class ChatModel : ItemViewModel<Chat>() {
-  val id: SimpleIntegerProperty = bind(Chat::idProperty)
+  val id: Property<String> = bind(Chat::id)
   val recipient: SimpleObjectProperty<User> = bind(Chat::recipientProperty)
   val messageList: SimpleListProperty<Message> = bind(Chat::messagesProperty)
   val preview: Property<StringBinding> = bind(Chat::previewProperty)

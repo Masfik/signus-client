@@ -23,10 +23,15 @@ class SignusTheme {
 
     /* Generic colours */
     @JvmStatic var RED               = NordSwatch.AURORA0.color
+    @JvmStatic var GREEN             = NordSwatch.AURORA3.color
+
   }
 }
 
-/* Nord Colours */
+/* * * * * * *\
+* Nord Swatch *
+\* * * * * * */
+
 enum class NordSwatch(val color: Color) {
   /* Polar Night */
   POLAR_NIGHT0(c("#2E3440")),
@@ -36,15 +41,18 @@ enum class NordSwatch(val color: Color) {
   POLAR_NIGHT3(c("#4C566A")),
   POLAR_NIGHT4(c("#5e6779")),
   POLAR_NIGHT5(c("707888")),
+
   /* Snow Storm */
   SNOW_STORM0(c("#d8dee9")),
   SNOW_STORM1(c("#e5e9f0")),
   SNOW_STORM2(c("#eceff4")),
+
   /* Frost */
   FROST0(c("#8fbcbb")),
   FROST1(c("#88c0d0")),
   FROST2(c("#81a1c1")),
   FROST3(c("#5e81ac")),
+
   /* Aurora */
   AURORA0(c("#BF616A")),
   AURORA1(c("#D08770")),

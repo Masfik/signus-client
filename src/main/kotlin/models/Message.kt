@@ -6,7 +6,7 @@ import tornadofx.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class Message(var id: Int? = null, data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.now()) {
+class Message(data: Any, sender: User, dateTime: LocalDateTime = LocalDateTime.now(), var id: String? = null) {
   // Data (the content sent)
   val dataProperty = SimpleObjectProperty(data)
   var data: Any by dataProperty
@@ -46,7 +46,7 @@ class Message(var id: Int? = null, data: Any, sender: User, dateTime: LocalDateT
 }
 
 class MessageModel : ItemViewModel<Message>() {
-  val id: Property<Int> = bind(Message::id)
+  val id: Property<String> = bind(Message::id)
   val data: SimpleObjectProperty<Any> = bind(Message::dataProperty)
   val sender: SimpleObjectProperty<User> = bind(Message::senderProperty)
   val status: SimpleObjectProperty<MessageStatus> = bind(Message::statusProperty)

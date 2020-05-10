@@ -1,21 +1,22 @@
 package models
 
 import javafx.beans.binding.StringBinding
-import javafx.beans.property.Property
-import javafx.beans.property.SimpleListProperty
-import javafx.beans.property.SimpleObjectProperty
-import javafx.beans.property.SimpleStringProperty
+import javafx.beans.property.*
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.ItemViewModel
 import tornadofx.getValue
-import tornadofx.toModel
-import javax.json.JsonObject
 import tornadofx.setValue
 
 class AuthUser(
-  firstName: String, username: String, email: String, id: Int? = null, lastName: String? = ""
-) : User(firstName, username, email, id, lastName) {
+  firstName: String,
+  username: String,
+  email: String,
+  id: String? = null,
+  lastName: String? = "",
+  token: String? = null,
+  status: UserStatus = UserStatus.OFFLINE
+) : User(firstName, username, email, id, lastName, status) {
   // Chats
   val chatsProperty = SimpleListProperty<Chat>(FXCollections.observableArrayList(ArrayList()))
   val chats: ObservableList<Chat> by chatsProperty
@@ -24,16 +25,16 @@ class AuthUser(
   val activeChatProperty = SimpleObjectProperty<Chat>()
   var activeChat: Chat by activeChatProperty
 
-  override fun updateModel(json: JsonObject) {
-    super.updateModel(json)
-    with(json) {
-      chats.setAll(getJsonArray("chats").toModel())
-    }
+  val tokenProperty = SimpleStringProperty(token)
+  var token: String? by tokenProperty
+
+  init {
+    super.avatar = "user.png"
   }
 }
 
 class AuthUserModel : ItemViewModel<AuthUser>() {
-  val id: Property<Int> = bind(AuthUser::id)
+  val id: ReadOnlyProperty<String> = bind(AuthUser::id)
   val firstName: SimpleStringProperty = bind(AuthUser::firstNameProperty)
   val lastName: SimpleStringProperty = bind(AuthUser::lastNameProperty)
   val fullName: Property<StringBinding> = bind(AuthUser::fullNameProperty)
@@ -42,4 +43,6 @@ class AuthUserModel : ItemViewModel<AuthUser>() {
   val status: SimpleObjectProperty<UserStatus> = bind(AuthUser::statusProperty)
   val chats: SimpleListProperty<Chat> = bind(AuthUser::chatsProperty)
   val activeChat: SimpleObjectProperty<Chat> = bind(AuthUser::activeChatProperty)
+  var token: SimpleStringProperty = bind(AuthUser::tokenProperty)
+  val avatar: SimpleStringProperty = bind(AuthUser::avatar)
 }

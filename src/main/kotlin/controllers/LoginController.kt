@@ -1,48 +1,48 @@
 package controllers
 
 import javafx.beans.property.SimpleStringProperty
-import models.AuthUser
 import models.AuthUserModel
 import models.ServerSettingsModel
-import services.authentication.AuthService
-import services.authentication.SignusAuthService
+import services.api.adapters.LoginDetails
 import tornadofx.*
-import tornadofx.Rest.Response
-import views.screens.MainScreen
 import views.screens.LoginScreen
+import views.screens.MainScreen
+import java.lang.Exception
+import java.lang.IllegalArgumentException
+import java.net.ConnectException
 
 class LoginController : Controller() {
-  // Authentication service (this can be replaced in the future by some other auth provider)
-  val authService: AuthService<AuthUser> = SignusAuthService
-  // Models
-  private val serverSettings: ServerSettingsModel by inject()
+  // AuthUser Model
   private val authUser: AuthUserModel by inject()
+  private val serverSettings: ServerSettingsModel by inject()
+
   // Status
   val errorProperty = SimpleStringProperty()
   private var error by errorProperty
-  // Rest API
-  private val api: Rest by inject()
 
-  fun login(username: String, password: String) {
+  init {
+    serverSettings.baseEndpoint.value = "localhost:3000"
+  }
+
+  suspend fun login(username: String, password: String) {
+    // Reset error property
     runLater { error = "" }
-    api.setBasicAuth(username, password)
 
-    val response: Response
     try {
-      response = api.get("user")
-      val json = response.one()
+      val response = AuthApiController()
+        .login(LoginDetails(username, password))
 
       runLater {
-        if (response.ok()) {
-          authUser.item = json.toModel()
+        if (response.user != null) {
+          authUser.item = response.user
           find<LoginScreen>().replaceWith(MainScreen::class)
-        } else error = json.string("message") ?: "Login failed"
+        } else error = response.message
       }
-    } catch (e: RestException) {
-      runLater {
-        error = "Unreachable Endpoint"
-        // TODO: change this
-        find<LoginScreen>().replaceWith(MainScreen::class)
+    } catch (e: Exception) {
+      when (e) {
+        is IllegalArgumentException,
+        is ConnectException -> runLater { error = "Unreachable Endpoint" }
+        else -> runLater { error = e.message }
       }
     }
   }

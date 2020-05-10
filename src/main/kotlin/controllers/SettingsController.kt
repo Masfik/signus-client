@@ -5,7 +5,7 @@ import tornadofx.Controller
 
 class SettingsController : Controller() {
   fun setProfilePicture() {
-
+    // TODO
   }
 
   fun save(authUser: AuthUserModel) {

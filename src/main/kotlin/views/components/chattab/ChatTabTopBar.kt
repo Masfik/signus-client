@@ -16,6 +16,11 @@ import views.stylesheets.ChatTabStylesheet.Companion.recipient as partnerID
 class ChatTabTopBar : View() {
   private val recipient = find<AuthUserModel>().activeChat.select(Chat::recipientProperty)
 
+  companion object {
+    val statusCircle by cssid()
+    val statusText by cssid()
+  }
+
   override val root = stackpane {
     addClass(topBar)
 
@@ -29,17 +34,18 @@ class ChatTabTopBar : View() {
           setId(recipientStatus)
 
           circle {
+            setId(statusCircle)
             radius = 5.0
             fill = Color.GRAY
           }
-          label("Offline")
+          label("Offline").setId(statusText)
         }
       }
       vbox {
         setId(closeButton)
 
         button("Close").action {
-          // Find ChatList and clear selection
+          // Find ChatList and clear selection - TODO: replace with EventBuses in the future
           find<ChatList>().root.selectionModel.clearSelection()
         }
       }

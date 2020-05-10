@@ -1,20 +1,15 @@
 package services.api
 
-import models.AuthUser
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Body
+import retrofit2.http.POST
+import services.api.adapters.LoginDetails
+import services.api.adapters.LoginResult
+import services.api.adapters.RegisterDetails
 
 interface AuthAPI {
-  @GET("login/{identifier}/{password}")
-  fun login(
-    @Path("identifier") identifier: String,
-    @Path("password") password: String
-  ): Call<AuthUser?>
+  @POST("login")
+  suspend fun login(@Body loginData: LoginDetails): LoginResult
 
-  @GET("register/{identifier}/{password}")
-  fun register(
-    @Path("identifier") identifier: String,
-    @Path("password") password: String
-  ): Call<AuthUser?>
+  @POST("register")
+  suspend fun register(@Body registerDetails: RegisterDetails): LoginResult
 }

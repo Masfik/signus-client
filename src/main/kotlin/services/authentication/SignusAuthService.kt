@@ -2,9 +2,9 @@ package services.authentication
 
 import models.AuthUser
 
-object SignusAuthService : AuthService<AuthUser> {
+class SignusAuthService(endpoint: String) : AuthService<AuthUser> {
   override val user: AuthUser?
-    get() = TODO("Not yet implemented")
+    get() = TODO()
 
   override fun login(identifier: String, password: String): AuthUser? {
     TODO("Not yet implemented")

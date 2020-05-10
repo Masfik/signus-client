@@ -1,5 +1,7 @@
 package models
 
 enum class UserStatus {
-  ONLINE, OFFLINE, BUSY
+  ONLINE,
+  OFFLINE,
+  BUSY
 }

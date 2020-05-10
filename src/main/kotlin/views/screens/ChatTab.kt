@@ -1,5 +1,9 @@
 package views.screens
 
+import controllers.ChatTabController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import tornadofx.View
 import tornadofx.addStylesheet
 import tornadofx.borderpane

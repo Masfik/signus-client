@@ -1,55 +1,74 @@
 package controllers
 
+import com.squareup.moshi.Moshi
 import com.tinder.scarlet.Scarlet
-import com.tinder.scarlet.WebSocket
-import com.tinder.scarlet.websocket.okhttp.newWebSocketFactory
+import com.tinder.scarlet.messageadapter.moshi.MoshiMessageAdapter
+import com.tinder.scarlet.retry.ExponentialBackoffStrategy
+import com.tinder.scarlet.websocket.ShutdownReason
+import com.tinder.scarlet.websocket.WebSocketEvent
+import com.tinder.scarlet.websocket.okhttp.OkHttpWebSocket
 import com.tinder.streamadapter.coroutines.CoroutinesStreamAdapterFactory
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.Flow
+import misc.DateAdapter
+import misc.UserStatusAdapter
 import models.AuthUserModel
 import models.ServerSettingsModel
+import models.adapters.ChatAdapter
+import models.adapters.MessageAdapter
+import models.adapters.UserAdapter
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import services.chat.SignusAppLifecycle
 import services.chat.ChatService
+import services.chat.updates.MessageUpdate
+import services.chat.updates.UserStatusUpdate
+import services.chat.updates.UserUpdate
 import tornadofx.Controller
 
-class ChatServiceController : Controller() {
+class ChatServiceController : ChatService, Controller() {
+  // Server settings
   private val serverSettings: ServerSettingsModel by inject()
   private val prefix = if (serverSettings.useHttps.value) "wss://" else "ws://"
-  private val endpoint = prefix + serverSettings.baseEndpoint.value
+  private val endpoint = prefix + serverSettings.baseEndpoint.valueSafe
+  // AuthUser token
+  private val token = find<AuthUserModel>().token.valueSafe
 
-  private val authUser: AuthUserModel by inject()
-
-  private val scarletInstance = Scarlet.Builder()
-    .webSocketFactory(OkHttpClient().newWebSocketFactory(endpoint))
-    // TODO: add a message adapter factory
-    .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
+  // Moshi (JSON encoding<->decoding)
+  private val moshi = Moshi.Builder()
+    .add(UserStatusAdapter())
+    .add(UserAdapter())
+    .add(ChatAdapter())
+    .add(MessageAdapter())
+    .add(DateAdapter())
     .build()
 
-  val service = scarletInstance.create<ChatService>()
+  // Scarlet service
+  private val scarletInstance = Scarlet(
+    // Specifying which websocket adapter to use (OkHttp WebSocket)
+    OkHttpWebSocket(
+      OkHttpClient(),
+      OkHttpWebSocket.SimpleRequestFactory(
+        { Request.Builder().url(endpoint).header("Authorization", token).build() },
+        { ShutdownReason.GRACEFUL }
+      )
+    ),
+    // Scarlet configuration
+    Scarlet.Configuration(
+      lifecycle               = SignusAppLifecycle(),
+      backoffStrategy         = ExponentialBackoffStrategy(1000, 60000),
+      streamAdapterFactories  = listOf(CoroutinesStreamAdapterFactory()),
+      messageAdapterFactories = listOf(MoshiMessageAdapter.Factory(moshi))
+    )
+  )
+  private val service = scarletInstance.create<ChatService>()
 
-  @ExperimentalCoroutinesApi
-  suspend fun start() {
-    service.observeWebSocketEvent().receiveAsFlow()
-      .filter { it is WebSocket.Event.OnConnectionOpened<*> }
-      .collect {
-        println("Connected successfully.")
-      }
+  override fun observeWebSocketEvent(): Flow<WebSocketEvent>  = service.observeWebSocketEvent()
 
-    service.observeChats().receiveAsFlow()
-      .collect { authUser.chats.value.add(it) }
+  override fun sendMessage(messageUpdate: MessageUpdate)      = service.sendMessage(messageUpdate)
 
-    service.observeUsers().receiveAsFlow()
-      .collect { user ->
-        authUser.chats.value.find { it.recipient.id == user.id }
-          ?.recipient?.update(user)
-      }
+  override fun observeIncomingMessage(): Flow<MessageUpdate>  = service.observeIncomingMessage()
 
-    service.observeMessages().receiveAsFlow()
-      .collect { update ->
-        authUser.chats.value.find { it.id == update.chatId }
-          ?.messageList?.add(update.message)
-      }
-  }
+  override fun observeUser(): Flow<UserUpdate>                = service.observeUser()
+
+  override fun observeUserStatus(): Flow<UserStatusUpdate>    = service.observeUserStatus()
 }
