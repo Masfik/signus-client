@@ -29,7 +29,7 @@ class ChatTabTopBar : View() {
         setId(partnerID)
         hgrow = Priority.ALWAYS
 
-        label(recipient.select(User::firstNameProperty)).addClass(recipientName)
+        label(recipient.select(User::fullNameProperty)).addClass(recipientName)
         hbox {
           setId(recipientStatus)
 

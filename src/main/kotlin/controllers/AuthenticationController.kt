@@ -36,7 +36,7 @@ class AuthenticationController : Controller() {
       runLater {
         if (response.user != null) {
           authUser.item = response.user
-          find<LoginScreen>().replaceWith(MainScreen::class)
+          find<LoginScreen>().replaceWith<MainScreen>()
         } else error = response.message
       }
     } catch (e: Exception) {
@@ -71,7 +71,7 @@ class AuthenticationController : Controller() {
       runLater {
         if (response.user != null) {
           authUser.item = response.user
-          find<LoginScreen>().replaceWith(MainScreen::class)
+          find<LoginScreen>().replaceWith<MainScreen>()
         } else error = response.message
       }
     } catch (e: Exception) {

@@ -6,15 +6,17 @@ import javafx.beans.property.SimpleStringProperty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import tornadofx.ViewTransition.Direction.RIGHT
+import tornadofx.ViewTransition.Slide
 import views.stylesheets.LoginStylesheet
 
 class RegisterForm : View() {
   private val model = ViewModel()
   private val firstName = model.bind { SimpleStringProperty() }
   private val lastName = model.bind { SimpleStringProperty() }
+  private val email = model.bind { SimpleStringProperty() }
   private val username = model.bind { SimpleStringProperty() }
   private val password = model.bind { SimpleStringProperty() }
-  private val email = model.bind { SimpleStringProperty() }
   private val confirmPassword = model.bind { SimpleStringProperty() }
 
   private val controller: AuthenticationController by inject()
@@ -59,7 +61,7 @@ class RegisterForm : View() {
         setId(LoginStylesheet.register)
 
         setOnMouseClicked {
-          find<LoginForm>().replaceWith<RegisterForm>()
+          find<RegisterForm>().replaceWith<LoginForm>(Slide(0.3.seconds, RIGHT))
         }
       }
     }

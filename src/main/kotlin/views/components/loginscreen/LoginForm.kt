@@ -6,6 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tornadofx.*
+import tornadofx.ViewTransition.Direction.LEFT
+import tornadofx.ViewTransition.Slide
 import views.stylesheets.LoginStylesheet.Companion.error
 import views.stylesheets.LoginStylesheet.Companion.register
 
@@ -37,7 +39,7 @@ class LoginForm : View() {
         setId(register)
 
         setOnMouseClicked {
-          find<LoginForm>().replaceWith<RegisterForm>()
+          find<LoginForm>().replaceWith<RegisterForm>(Slide(0.3.seconds, LEFT))
         }
       }
     }

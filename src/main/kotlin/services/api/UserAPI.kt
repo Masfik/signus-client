@@ -8,7 +8,9 @@ import retrofit2.http.Query
 
 interface UserAPI {
   @GET("user")
-  suspend fun authUser(@Header("Authorization") token: String): AuthUser
+  suspend fun authUser(
+    @Header("Authorization") token: String
+  ): AuthUser
 
   @GET("user")
   suspend fun userByUsername(

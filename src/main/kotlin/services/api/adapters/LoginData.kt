@@ -19,7 +19,7 @@ data class LoginDetails(
 @JsonClass(generateAdapter = true)
 data class RegisterDetails(
   val firstName: String,
-  val lastName: String,
+  val lastName: String? = null,
   val email: String,
   val username: String,
   val password: String
