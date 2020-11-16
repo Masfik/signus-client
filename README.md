@@ -8,3 +8,10 @@ Current features include:
 - Add contacts
 - Send and receive messages to/from multiple contacts
 - Update your own details
+
+<p align="center">
+  <img src="https://i.imgur.com/IfDe3LS.png" alt="Signus Screenshot" />
+</p>
+
+## 🚀 How To Run
+To compile the app, simply build the project with Gradle and execute the main method as usual. Easy! 🤜🤛
